@@ -284,13 +284,13 @@ function App() {
             {/* Contact Info */}
             <div className="hidden lg:flex items-center gap-6">
               <a 
-                href="mailto:itranslogisticltd@email.com" 
+                href="mailto:support@itranslogisticsltd.com" 
                 className={`flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors ${
                   isScrolled ? 'text-text-dark' : 'text-white'
                 }`}
               >
                 <Mail className="w-4 h-4" />
-                <span>itranslogisticltd@email.com</span>
+                <span>support@itranslogisticsltd.com</span>
               </a>
               <Button 
                 onClick={() => scrollToSection(quoteRef)}
@@ -329,11 +329,11 @@ function App() {
                 </button>
               ))}
               <a 
-                href="mailto:itranslogisticltd@email.com" 
+                href="mailto:support@itranslogisticsltd.com" 
                 className="flex items-center gap-2 text-text-dark text-sm py-2"
               >
                 <Mail className="w-4 h-4" />
-                itranslogisticltd@email.com
+                support@itranslogisticsltd.com
               </a>
             </nav>
           </div>
