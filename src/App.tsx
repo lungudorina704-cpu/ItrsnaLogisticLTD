@@ -82,19 +82,19 @@ const sampleTrackingData: Record<string, TrackingData> = {
 
 'ITR78738955': {
   trackingNumber: 'ITR78738955',
-  origin: 'Tel Aviv (TLV), Israel',
-  destination: 'Romania',
-  estimatedDelivery: 'June 7, 2026',
+  origin: 'Ben Gurion International Airport (TLV), Israel',
+  destination: 'Australia',
+  estimatedDelivery: 'June 25, 2026',
   status: 'In Transit to Destination',
   events: [
-    { date: 'Jun 07', time: '10:15 AM', location: 'Romania', status: 'Out for delivery', completed: false },
-    { date: 'Jun 06', time: '03:30 PM', location: 'Romania', status: 'Held in customs awaiting customs clearance', completed: false },
-    { date: 'Jun 06', time: '02:30 PM', location: 'Bucharest, Romania', status: 'Arrived at destination airport', completed: true },
-    { date: 'Jun 05', time: '11:45 PM', location: 'In Transit (Airborne)', status: 'International flight departed', completed: true  },
-    { date: 'Jun 05', time: '10:15 AM', location: 'Ben Gurion (TLV), Israel', status: 'Export customs clearance completed', completed: true },
-    { date: 'Jun 04', time: '02:30 PM', location: 'Ben Gurion (TLV), Israel', status: 'Shipment processed and prepared for dispatch', completed: true },
-    { date: 'Jun 04', time: '11:45 AM', location: 'Ben Gurion (TLV), Israel', status: 'Airway bill issued', completed: true },
-    { date: 'Jun 04', time: '10:30 AM', location: 'Tel Aviv, Israel', status: 'Shipment registered', completed: true }
+    { date: 'Jun 25', time: '10:15 AM', location: 'Australia', status: 'Out for delivery', completed: false },
+    { date: 'Jun 24', time: '03:30 PM', location: 'Australia', status: 'Processing at destination facility', completed: false },
+    { date: 'Jun 24', time: '02:30 PM', location: 'Brisbane, Australia', status: 'Arrived at destination airport', completed: false },
+    { date: 'Jun 23', time: '11:45 PM', location: 'In Transit (Airborne)', status: 'International flight departed', completed: false },
+    { date: 'Jun 23', time: '10:15 AM', location: 'Ben Gurion (TLV), Israel', status: 'Export customs clearance completed', completed: false },
+    { date: 'Jun 22', time: '02:30 PM', location: 'Ben Gurion (TLV), Israel', status: 'Shipment processed and prepared for dispatch', completed: true },
+    { date: 'Jun 22', time: '11:45 AM', location: 'Ben Gurion (TLV), Israel', status: 'Airway bill issued', completed: true },
+    { date: 'Jun 22', time: '10:30 AM', location: 'Tel Aviv, Israel', status: 'Shipment registered', completed: true } 
   ]
 },
 
