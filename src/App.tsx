@@ -117,21 +117,21 @@ const sampleTrackingData: Record<string, TrackingData> = {
   'ITR78738951': {
   trackingNumber: 'ITR78738951',
   origin: 'Tel Aviv (TLV), Israel',
-  destination: 'Senec, Slovakia',  
-  estimatedDelivery: 'June 2, 2026',
-  status: 'Express Shipment In Transit',
+  destination: 'Pogoanele, Buzău County, Romania',
+  estimatedDelivery: 'June 26, 2026',
+  status: 'Shipment In Transit',
   events: [
-    { date: 'Jun 03', time: '08:35 AM', location: 'Senec, Slovakia', status: 'Out for express delivery', completed: false },
-    { date: 'Jun 03', time: '10:00 AM', location: 'Bratislava, Slovakia', status: 'Held in customs awaiting customs clearance', completed: false },
-    { date: 'Jun 02', time: '08:30 AM', location: 'Bratislava, Slovakia', status: 'Arrived at destination sorting facility', completed: true },
-    { date: 'Jun 01', time: '10:45 PM', location: 'Vienna, Austria', status: 'Shipment transferred at transit hub', completed: true },
-    { date: 'Jun 01', time: '09:30 PM', location: 'In transit (Airborne)', status: 'Flight landed/Arrived at transit hub', completed: true },
-    { date: 'Jun 01', time: '12:00 PM', location: 'Ben Gurion (TLV), Israel', status: 'Export customs clearance & security scan completed', completed: true },
-    { date: 'May 31', time: '10:00 PM', location: 'Ben Gurion (TLV), Israel', status: 'Shipment departed from origin facility', completed: true },
-    { date: 'May 31', time: '02:30 PM', location: 'Tel Aviv, Israel', status: 'Processed at origin facility', completed: true  },
-    { date: 'May 30', time: '11:25 AM', location: 'Tel Aviv, Israel', status: 'Shipment registered', completed: true },
-    { date: 'May 30', time: '08:10 AM', location: 'Tel Aviv, Israel', status: 'Picked up by carrier', completed: true }
-  ] 
+    { date: 'Jun 26', time: '08:30 AM', location: 'Pogoanele, Romania', status: 'Out for delivery', completed: false },
+    { date: 'Jun 26', time: '07:15 AM', location: 'Buzău, Romania', status: 'Arrived at local delivery facility', completed: false },
+    { date: 'Jun 25', time: '05:40 PM', location: 'Bucharest, Romania', status: 'Customs clearance in progress', completed: false },
+    { date: 'Jun 25', time: '11:20 AM', location: 'Bucharest Henri Coandă Airport, Romania', status: 'Arrived in destination country', completed: false },
+    { date: 'Jun 24', time: '09:45 PM', location: 'In transit (Airborne)', status: 'Flight departed transit hub', completed: false },
+    { date: 'Jun 24', time: '03:30 PM', location: 'Athens, Greece', status: 'Shipment transferred at transit hub', completed: false },
+    { date: 'Jun 24', time: '10:15 AM', location: 'In transit (Airborne)', status: 'Flight departed from origin country', completed: false },
+    { date: 'Jun 23', time: '04:50 PM', location: 'Ben Gurion (TLV), Israel', status: 'Export customs clearance completed', completed: true },
+    { date: 'Jun 23', time: '02:15 PM', location: 'Tel Aviv, Israel', status: 'Processed at origin facility', completed: true },
+    { date: 'Jun 23', time: '09:00 AM', location: 'Tel Aviv, Israel', status: 'Shipment registered', completed: true }
+  ]
 } 
 };
 
