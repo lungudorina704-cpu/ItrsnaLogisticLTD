@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
+
+mport { useState, useEffect, useRef } from 'react'
 import emailjs from '@emailjs/browser';
 import { 
   Menu, X, Phone, Mail, MapPin, ChevronRight, 
@@ -126,9 +127,9 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'Jun 26', time: '07:15 AM', location: 'Buzău, Romania', status: 'Arrived at local delivery facility', completed: false },
     { date: 'Jun 25', time: '05:40 PM', location: 'Bucharest, Romania', status: 'Customs clearance in progress', completed: false },
     { date: 'Jun 25', time: '11:20 AM', location: 'Bucharest Henri Coandă Airport, Romania', status: 'Arrived in destination country', completed: false },
-    { date: 'Jun 24', time: '09:45 PM', location: 'In transit (Airborne)', status: 'Flight departed transit hub', completed: false },
-    { date: 'Jun 24', time: '03:30 PM', location: 'Athens, Greece', status: 'Shipment transferred at transit hub', completed: false },
-    { date: 'Jun 24', time: '10:15 AM', location: 'In transit (Airborne)', status: 'Flight departed from origin country', completed: false },
+    { date: 'Jun 24', time: '09:45 PM', location: 'In transit (Airborne)', status: 'Flight departed transit hub', completed: true },
+    { date: 'Jun 24', time: '03:30 PM', location: 'Athens, Greece', status: 'Shipment transferred at transit hub', completed: true },
+    { date: 'Jun 24', time: '10:15 AM', location: 'In transit (Airborne)', status: 'Flight departed from origin country', completed: true },
     { date: 'Jun 23', time: '04:50 PM', location: 'Ben Gurion (TLV), Israel', status: 'Export customs clearance completed', completed: true },
     { date: 'Jun 23', time: '02:15 PM', location: 'Tel Aviv, Israel', status: 'Processed at origin facility', completed: true },
     { date: 'Jun 23', time: '09:00 AM', location: 'Tel Aviv, Israel', status: 'Shipment registered', completed: true }
