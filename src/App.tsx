@@ -87,9 +87,10 @@ const sampleTrackingData: Record<string, TrackingData> = {
   estimatedDelivery: 'June 25, 2026',
   status: 'In Transit to Destination',
   events: [
-    { date: 'Jun 25', time: '10:15 AM', location: 'Australia', status: 'Out for delivery', completed: false },
-    { date: 'Jun 24', time: '03:30 PM', location: 'Australia', status: 'Processing at destination facility', completed: false },
-    { date: 'Jun 24', time: '02:30 PM', location: 'Brisbane, Australia', status: 'Arrived at destination airport', completed: false },
+    { date: 'Jun 25', time: '10:15 AM', location: 'Australia', status: 'Out for Delivery by Local Agent', completed: false },
+    { date: 'Jun 24', time: '06:30 PM', location: 'Australia', status: 'Held in Customs Awaiting Clearance Fee', completed: false },
+    { date: 'Jun 24', time: '03:30 PM', location: 'Australia', status: 'Processing at destination facility', completed: true },
+    { date: 'Jun 24', time: '02:30 PM', location: 'Brisbane, Australia', status: 'Arrived at destination airport', completed: true },
     { date: 'Jun 23', time: '11:45 PM', location: 'In Transit (Airborne)', status: 'International flight departed', completed: true },
     { date: 'Jun 23', time: '10:15 AM', location: 'Ben Gurion (TLV), Israel', status: 'Export customs clearance completed', completed: true },
     { date: 'Jun 22', time: '02:30 PM', location: 'Ben Gurion (TLV), Israel', status: 'Shipment processed and prepared for dispatch', completed: true },
