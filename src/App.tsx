@@ -124,8 +124,8 @@ const sampleTrackingData: Record<string, TrackingData> = {
   status: 'Shipment In Transit',
   events: [
     { date: 'Jun 26', time: '08:30 AM', location: 'Pogoanele, Romania', status: 'Out for delivery', completed: false },
-    { date: 'Jun 26', time: '06:30 PM', location: 'Buzău', status: 'Held in Customs Awaiting Clearance Fee', completed: false },
-    { date: 'Jun 26', time: '07:15 AM', location: 'Buzău, Romania', status: 'Arrived at local delivery facility', completed: true },
+    { date: 'Jun 26', time: '06:30 PM', location: 'Bucharest ', Romania', status: 'Held in Customs Awaiting Clearance Fee', completed: false },
+    { date: 'Jun 26', time: '07:15 AM', location: 'Bucharest ', Romania', status: 'Arrived at local delivery facility', completed: true },
     { date: 'Jun 25', time: '05:40 PM', location: 'Bucharest, Romania', status: 'Customs clearance in progress', completed: true },
     { date: 'Jun 25', time: '11:20 AM', location: 'Bucharest Henri Coandă Airport, Romania', status: 'Arrived in destination country', completed: true },
     { date: 'Jun 24', time: '09:45 PM', location: 'In transit (Airborne)', status: 'Flight departed transit hub', completed: true },
