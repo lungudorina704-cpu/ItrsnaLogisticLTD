@@ -136,16 +136,16 @@ const sampleTrackingData: Record<string, TrackingData> = {
 
   'ITR78738962': {
   trackingNumber: 'ITR78738962',
-  origin: 'London City Airport (LCY), Royal Docks, London, E16 2PX, UK',
+  origin: 'Dubai International Airport (DXB), Dubai, United Arab Emirates',
   destination: 'Aylesbury, Buckinghamshire HP20 2GN, United Kingdom',
   estimatedDelivery: 'July 7, 2026',
-  status: 'Shipment In Transit',
+  status: 'Shipment In Transit', 
   events: [
     { date: 'Jul 7', time: '08:30 AM', location: 'Aylesbury, Buckinghamshire, UK', status: 'Out for delivery', completed: false },
     { date: 'Jul 7', time: '06:30 AM', location: 'Aylesbury, Buckinghamshire, UK', status: 'Arrived at local delivery facility', completed: false },
-    { date: 'Jul 6', time: '05:40 PM', location: 'London, UK', status: 'Customs clearance in progress', completed: false },
-    { date: 'Jul 6', time: '02:15 PM', location: 'London City Airport (LCY), UK', status: 'Processed at origin facility', completed: true },
-    { date: 'Jul 6', time: '09:00 AM', location: 'London City Airport (LCY), UK', status: 'Shipment registered', completed: true }
+    { date: 'Jul 6', time: '05:40 PM', location: 'London, UK', status: 'Customs clearance in progress', completed: true },
+    { date: 'Jul 6', time: '02:15 PM', location: 'Dubai International Airport (DXB), UAE', status: 'Departed origin facility', completed: true },
+    { date: 'Jul 6', time: '09:00 AM', location: 'Dubai International Airport (DXB), UAE', status: 'Shipment registered', completed: true }
   ]
 },
 
