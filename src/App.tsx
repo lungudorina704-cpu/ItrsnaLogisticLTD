@@ -132,7 +132,7 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'Jul 6', time: '02:15 PM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Processed at origin facility', completed: true },
     { date: 'Jul 6', time: '09:00 AM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Shipment registered', completed: true }
   ]
-}
+},
 
   'ITR78738962': {
   trackingNumber: 'ITR78738962',
@@ -147,7 +147,7 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'Jul 6', time: '02:15 PM', location: 'London City Airport (LCY), UK', status: 'Processed at origin facility', completed: true },
     { date: 'Jul 6', time: '09:00 AM', location: 'London City Airport (LCY), UK', status: 'Shipment registered', completed: true }
   ]
-}
+},
 
   'ITR78738951': {
   trackingNumber: 'ITR78738951',
