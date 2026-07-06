@@ -99,8 +99,8 @@ const sampleTrackingData: Record<string, TrackingData> = {
   ]
 },
 
-'ITR78738952': {
-  trackingNumber: '78738952',
+'ITR87738952': {
+  trackingNumber: '87738952',
   origin: 'Tel Aviv (TLV), Israel',
   destination: 'Texas, USA',
   estimatedDelivery: 'May 18, 2026',
