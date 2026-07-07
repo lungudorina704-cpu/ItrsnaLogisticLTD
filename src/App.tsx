@@ -125,9 +125,9 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'Jul 9', time: '06:30 AM', location: 'Melbourne, Victoria, Australia', status: 'Arrived at local delivery facility', completed: false },
     { date: 'Jul 8', time: '05:40 PM', location: 'Melbourne, Victoria, Australia', status: 'Customs clearance in progress', completed: false },
     { date: 'Jul 8', time: '11:20 AM', location: 'Melbourne Airport, Australia', status: 'Arrived in destination country', completed: false },
-    { date: 'Jul 7', time: '09:45 PM', location: 'In transit (Airborne)', status: 'Flight departed transit hub', completed: false },
-    { date: 'Jul 7', time: '03:30 PM', location: 'Singapore', status: 'Shipment transferred at transit hub', completed: false },
-    { date: 'Jul 7', time: '10:15 AM', location: 'In transit (Airborne)', status: 'Flight departed from origin country', completed: false },
+    { date: 'Jul 7', time: '09:45 PM', location: 'In transit (Airborne)', status: 'Flight departed transit hub', completed: true },
+    { date: 'Jul 7', time: '03:30 PM', location: 'Singapore', status: 'Shipment transferred at transit hub', completed: true },
+    { date: 'Jul 7', time: '10:15 AM', location: 'In transit (Airborne)', status: 'Flight departed from origin country', completed: true },
     { date: 'Jul 6', time: '04:50 PM', location: 'Ben Gurion (TLV), Israel', status: 'Export customs clearance completed', completed: true },
     { date: 'Jul 6', time: '02:15 PM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Processed at origin facility', completed: true },
     { date: 'Jul 6', time: '09:00 AM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Shipment registered', completed: true }
@@ -141,8 +141,8 @@ const sampleTrackingData: Record<string, TrackingData> = {
   estimatedDelivery: 'July 7, 2026',
   status: 'Shipment In Transit', 
   events: [
-    { date: 'Jul 7', time: '08:30 AM', location: 'Aylesbury, Buckinghamshire, UK', status: 'Out for delivery', completed: false },
-    { date: 'Jul 7', time: '06:30 AM', location: 'Aylesbury, Buckinghamshire, UK', status: 'Arrived at local delivery facility', completed: false },
+    { date: 'Jul 7', time: '02:30 PM', location: 'Aylesbury, Buckinghamshire, UK', status: 'Held in customs awaiting clearance fees before final delivery', completed: false },
+    { date: 'Jul 7', time: '09:30 AM', location: 'Aylesbury, Buckinghamshire, UK', status: 'Arrived at local delivery facility', completed: true },
     { date: 'Jul 6', time: '05:40 PM', location: 'London, UK', status: 'Customs clearance in progress', completed: true },
     { date: 'Jul 6', time: '02:15 PM', location: 'Dubai International Airport (DXB), UAE', status: 'Departed origin facility', completed: true },
     { date: 'Jul 6', time: '09:00 AM', location: 'Dubai International Airport (DXB), UAE', status: 'Shipment registered', completed: true }
