@@ -1,4 +1,4 @@
-  import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import emailjs from '@emailjs/browser';
 import { 
   Menu, X, Phone, Mail, MapPin, ChevronRight, 
@@ -93,7 +93,6 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'July 10', time: '08:20 PM', location: 'In transit', status: 'Shipment in transit to destination', completed: false },
     { date: 'July 11', time: '10:15 AM', location: 'Mexicali, BC, Mexico', status: 'Held in customs awaiting clearance fee payment', completed: false }
   ]
-}
     
 'ITR78738952': {
   trackingNumber: '78738952',
@@ -591,93 +590,90 @@ function App() {
               </p>
 
               <div className="space-y-6">
-  {[
-    { icon: Phone, label: 'Phone', value: '+1 (806) 671-0011' },
-    { icon: Mail, label: 'Email', value: 'info@itranslo.itranslogisticsltd.com' },
-    { icon: MapPin, label: 'Address', value: '123 Logistics Way, Houston, TX 77001' },
-  ].map((contact: any, index: number) => (
-    <div key={index} className="flex items-start gap-4">
+                {[
+                  { icon: Phone, label: 'Phone', value: '+1 (806) 671-0011' },
+                  { icon: Mail, label: 'Email', value: 'info@itranslo.itranslogisticsltd.com' },
+                  { icon: MapPin, label: 'Address', value: '123 Logistics Way, Houston, TX 77001' },
+                ].map((contact: any, index: number) => (
+                  <div key={index} className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <contact.icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <div className="text-text-light text-sm mb-1">
+                        {contact.label}
+                      </div>
+                      <div className="text-text-dark font-medium">
+                        {contact.value}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-      <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-        <contact.icon className="w-5 h-5 text-primary" />
-      </div>
+            <div>
+              <div className="bg-gray-50 rounded-2xl p-8 lg:p-10">
+                <form onSubmit={sendEmail} className="space-y-6">
+                  <div>
+                    <label className="block text-text-dark font-medium mb-2">Full Name *</label>
+                    <Input
+                      name="user_name"
+                      type="text"
+                      placeholder="John Doe"
+                      value={quoteForm.name}
+                      onChange={(e) => setQuoteForm({ ...quoteForm, name: e.target.value })}
+                      className="w-full"
+                    />
+                  </div>
 
-      <div>
-        <div className="text-text-light text-sm mb-1">
-          {contact.label}
-        </div>
-        <div className="text-text-dark font-medium">
-          {contact.value}
-        </div>
-      </div>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-text-dark font-medium mb-2">Email *</label>
+                      <Input
+                        name="user_email"
+                        type="email"
+                        placeholder="john@example.com"
+                        value={quoteForm.email}
+                        onChange={(e) => setQuoteForm({ ...quoteForm, email: e.target.value })}
+                        className="w-full"
+                      />
+                    </div>
 
-    </div>
-  ))}
-</div>
+                    <div>
+                      <label className="block text-text-dark font-medium mb-2">Phone</label>
+                      <Input
+                        name="user_phone"
+                        type="tel"
+                        placeholder="+1 (555) 000-0000"
+                        value={quoteForm.phone}
+                        onChange={(e) => setQuoteForm({ ...quoteForm, phone: e.target.value })}
+                        className="w-full"
+                      />
+                    </div>
+                  </div>
 
-</div>
-</div>
-           <div className="bg-gray-50 rounded-2xl p-8 lg:p-10">
-            <form onSubmit={sendEmail} className="space-y-6">
+                  <div>
+                    <label className="block text-text-dark font-medium mb-2">Message *</label>
+                    <textarea
+                      name="message"
+                      rows={4}
+                      placeholder="Tell us about your logistics needs..."
+                      value={quoteForm.message}
+                      onChange={(e) => setQuoteForm({ ...quoteForm, message: e.target.value })}
+                      className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl"
+                    />
+                  </div>
 
-  <div>
-    <label className="block text-text-dark font-medium mb-2">Full Name *</label>
-    <Input
-      name="user_name"
-      type="text"
-      placeholder="John Doe"
-      value={quoteForm.name}
-      onChange={(e) => setQuoteForm({ ...quoteForm, name: e.target.value })}
-      className="w-full"
-    />
-  </div>
-
-  <div className="grid sm:grid-cols-2 gap-4">
-    <div>
-      <label className="block text-text-dark font-medium mb-2">Email *</label>
-      <Input
-        name="user_email"
-        type="email"
-        placeholder="john@example.com"
-        value={quoteForm.email}
-        onChange={(e) => setQuoteForm({ ...quoteForm, email: e.target.value })}
-        className="w-full"
-      />
-    </div>
-
-    <div>
-      <label className="block text-text-dark font-medium mb-2">Phone</label>
-      <Input
-        name="user_phone"
-        type="tel"
-        placeholder="+1 (555) 000-0000"
-        value={quoteForm.phone}
-        onChange={(e) => setQuoteForm({ ...quoteForm, phone: e.target.value })}
-        className="w-full"
-      />
-    </div>
-  </div>
-
-  <div>
-    <label className="block text-text-dark font-medium mb-2">Message *</label>
-    <textarea
-      name="message"
-      rows={4}
-      placeholder="Tell us about your logistics needs..."
-      value={quoteForm.message}
-      onChange={(e) => setQuoteForm({ ...quoteForm, message: e.target.value })}
-      className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl"
-    />
-  </div>
-
-  <Button
-    type="submit"
-    className="w-full bg-primary hover:bg-primary-600 text-white py-6 rounded-xl font-medium"
-  >
-    Submit Request
-  </Button>
-
-</form>
+                  <Button
+                    type="submit"
+                    className="w-full bg-primary hover:bg-primary-600 text-white py-6 rounded-xl font-medium"
+                  >
+                    Submit Request
+                  </Button>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </section>
