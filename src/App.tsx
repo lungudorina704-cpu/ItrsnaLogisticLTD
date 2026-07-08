@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+  import { useState, useEffect, useRef } from 'react'
 import emailjs from '@emailjs/browser';
 import { 
   Menu, X, Phone, Mail, MapPin, ChevronRight, 
@@ -80,25 +80,21 @@ const sampleTrackingData: Record<string, TrackingData> = {
    ]
   },
 
-'ITR78738955': {
-  trackingNumber: 'ITR78738955',
-  origin: 'Ben Gurion International Airport (TLV), Israel',
-  destination: 'Australia',
-  estimatedDelivery: 'June 25, 2026',
-  status: 'In Transit to Destination',
+  'ITR78738955': {
+  trackingNumber: '78738955',
+  origin: 'Tel Aviv (TLV), Israel',
+  destination: 'Mexicali, BC, Mexico',
+  estimatedDelivery: 'July 11, 2026',
+  status: 'Processed',
   events: [
-    { date: 'Jun 25', time: '10:15 AM', location: 'Australia', status: 'Out for Delivery by Local Agent', completed: false },
-    { date: 'Jun 24', time: '06:30 PM', location: 'Australia', status: 'Held in Customs Awaiting Clearance Fee', completed: false },
-    { date: 'Jun 24', time: '03:30 PM', location: 'Australia', status: 'Processing at destination facility', completed: true },
-    { date: 'Jun 24', time: '02:30 PM', location: 'Brisbane, Australia', status: 'Arrived at destination airport', completed: true },
-    { date: 'Jun 23', time: '11:45 PM', location: 'In Transit (Airborne)', status: 'International flight departed', completed: true },
-    { date: 'Jun 23', time: '10:15 AM', location: 'Ben Gurion (TLV), Israel', status: 'Export customs clearance completed', completed: true },
-    { date: 'Jun 22', time: '02:30 PM', location: 'Ben Gurion (TLV), Israel', status: 'Shipment processed and prepared for dispatch', completed: true },
-    { date: 'Jun 22', time: '11:45 AM', location: 'Ben Gurion (TLV), Israel', status: 'Airway bill issued', completed: true },
-    { date: 'Jun 22', time: '10:30 AM', location: 'Tel Aviv, Israel', status: 'Shipment registered', completed: true } 
+    { date: 'July 8', time: '09:00 AM', location: 'Tel Aviv (TLV), Israel', status: 'Shipment registered and processed', completed: true },
+    { date: 'July 8', time: '02:30 PM', location: 'Ben Gurion International Airport (TLV)', status: 'Airway bill issued and verified', completed: true },
+    { date: 'July 9', time: '11:45 AM', location: 'In transit', status: 'General cargo departed from origin facility', completed: false },
+    { date: 'July 10', time: '08:20 PM', location: 'In transit', status: 'Shipment in transit to destination', completed: false },
+    { date: 'July 11', time: '10:15 AM', location: 'Mexicali, BC, Mexico', status: 'Held in customs awaiting clearance fee payment', completed: false }
   ]
-},
-
+}
+    
 'ITR78738952': {
   trackingNumber: '78738952',
   origin: 'Tel Aviv (TLV), Israel',
@@ -115,16 +111,17 @@ const sampleTrackingData: Record<string, TrackingData> = {
  },
 
 'ITR78738961': {
-  trackingNumber: 'ITR78738961',
+  trackingNumber: 'ITR78738961', 
   origin: 'Ben Gurion International Airport (TLV), Israel',
   destination: 'Wyndham Vale, Victoria 3024, Australia',
   estimatedDelivery: 'July 9, 2026',
   status: 'Shipment In Transit',
   events: [
     { date: 'Jul 9', time: '08:30 AM', location: 'Wyndham Vale, Victoria, Australia', status: 'Out for delivery', completed: false },
-    { date: 'Jul 9', time: '06:30 AM', location: 'Melbourne, Victoria, Australia', status: 'Arrived at local delivery facility', completed: false },
-    { date: 'Jul 8', time: '05:40 PM', location: 'Melbourne, Victoria, Australia', status: 'Customs clearance in progress', completed: false },
-    { date: 'Jul 8', time: '11:20 AM', location: 'Melbourne Airport, Australia', status: 'Arrived in destination country', completed: false },
+    { date: 'Jul 9', time: '06:30 AM', location: 'Melbourne, Victoria, Australia', status: 'Awating custom clearance fee', completed: false },
+    { date: 'Jul 8', time: '05:40 PM', location: 'Melbourne, Victoria, Australia', status: 'Customs inspection in progress', completed: true },
+    { date: 'Jul 9', time: '06:30 AM', location: 'Melbourne, Victoria, Australia', status: 'Arrived at local delivery facility', completed: true },
+    { date: 'Jul 8', time: '11:20 AM', location: 'Melbourne Airport, Australia', status: 'Arrived in destination country', completed: true },
     { date: 'Jul 7', time: '09:45 PM', location: 'In transit (Airborne)', status: 'Flight departed transit hub', completed: true },
     { date: 'Jul 7', time: '03:30 PM', location: 'Singapore', status: 'Shipment transferred at transit hub', completed: true },
     { date: 'Jul 7', time: '10:15 AM', location: 'In transit (Airborne)', status: 'Flight departed from origin country', completed: true },
