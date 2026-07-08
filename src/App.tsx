@@ -93,7 +93,8 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'July 10', time: '08:20 PM', location: 'In transit', status: 'Shipment in transit to destination', completed: false },
     { date: 'July 11', time: '10:15 AM', location: 'Mexicali, BC, Mexico', status: 'Held in customs awaiting clearance fee payment', completed: false }
   ]
-    
+},
+  
 'ITR78738952': {
   trackingNumber: '78738952',
   origin: 'Tel Aviv (TLV), Israel',
