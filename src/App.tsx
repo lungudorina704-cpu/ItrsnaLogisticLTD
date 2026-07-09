@@ -47,7 +47,7 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'Jun 09', time: '03:15 PM', location: 'Glasgow Airport, United Kingdom', status: 'Airway bill issued', completed: true },
     { date: 'Jun 09', time: '04:00 PM', location: 'Glasgow Airport, United Kingdom', status: 'Cargo received by carrier', completed: true }
   ]
-  },
+ },
 
   'ITR78738981': {
   trackingNumber: 'ITR78738981',
@@ -63,7 +63,7 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'July 10', time: '08:15 AM', location: 'Grünwald, Germany', status: 'Held in customs awaiting clearance fee payment', completed: false },
     { date: 'July 10', time: '10:00 AM', location: 'Grünwald, Germany', status: 'Out for delivery', completed: false }
   ]
-},
+ },
     
   'ITR78738964': {
   trackingNumber: 'ITR78738964',
@@ -105,11 +105,11 @@ const sampleTrackingData: Record<string, TrackingData> = {
   events: [
     { date: 'July 8', time: '09:00 AM', location: 'Tel Aviv (TLV), Israel', status: 'Shipment registered and processed', completed: true },
     { date: 'July 8', time: '02:30 PM', location: 'Ben Gurion International Airport (TLV)', status: 'Airway bill issued and verified', completed: true },
-    { date: 'July 9', time: '11:45 AM', location: 'In transit', status: 'General cargo departed from origin facility', completed: false },
+    { date: 'July 9', time: '12:45 AM', location: 'In transit', status: 'General cargo departed from origin facility', completed: true },
     { date: 'July 10', time: '08:20 PM', location: 'In transit', status: 'Shipment in transit to destination', completed: false },
     { date: 'July 11', time: '10:15 AM', location: 'Mexicali, BC, Mexico', status: 'Held in customs awaiting clearance fee payment', completed: false }
   ]
-},
+ },
   
 'ITR78738952': {
   trackingNumber: '78738952',
