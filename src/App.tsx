@@ -63,7 +63,7 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'July 10', time: '08:15 AM', location: 'Grünwald, Germany', status: 'Held in customs awaiting clearance fee payment', completed: false },
     { date: 'July 10', time: '10:00 AM', location: 'Grünwald, Germany', status: 'Out for delivery', completed: false }
   ]
-}
+},
     
   'ITR78738964': {
   trackingNumber: 'ITR78738964',
