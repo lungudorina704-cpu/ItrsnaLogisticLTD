@@ -49,6 +49,22 @@ const sampleTrackingData: Record<string, TrackingData> = {
   ]
   },
 
+  'ITR78738981': {
+  trackingNumber: 'ITR78738981',
+  origin: 'Halle, Saxony, Germany',
+  destination: 'Grünwald, Germany',
+  estimatedDelivery: 'July 10, 2026',
+  status: 'in transit',
+  events: [
+    { date: 'July 9', time: '08:00 AM', location: 'Schkeuditz, Germany', status: 'Shipment information received', completed: true },
+    { date: 'July 9', time: '02:30 PM', location: 'Halle, Saxony, Germany', status: 'Package accepted and processed at origin facility', completed: true },
+    { date: 'July 9', time: '06:00 PM', location: 'Schkeuditz, Germany', status: 'In transit to destination', completed: true },
+    { date: 'July 10', time: '06:30 AM', location: 'Grünwald, Germany', status: 'Arrived at destination facility', completed: false  },
+    { date: 'July 10', time: '08:15 AM', location: 'Grünwald, Germany', status: 'Held in customs awaiting clearance fee payment', completed: false },
+    { date: 'July 10', time: '10:00 AM', location: 'Grünwald, Germany', status: 'Out for delivery', completed: false }
+  ]
+}
+    
   'ITR78738964': {
   trackingNumber: 'ITR78738964',
   origin: 'Tel Aviv (TLV), Israel',
