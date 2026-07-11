@@ -76,7 +76,6 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'May 19', time: '10:15 AM', location: 'Tel Aviv (TLV), Israel', status: 'Package accepted and processed at origin facility', completed: true },
     { date: 'May 20', time: '12:40 PM', location: 'Paris, France', status: 'In transit to destination country', completed: true },
     { date: 'May 21', time: '03:10 PM', location: 'Sibiu, Romania', status: 'Held in customs awaiting clearance fee payment', completed: false }
-
   ] 
  },
 
@@ -125,7 +124,6 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'May 15', time: '11:45 AM', location: 'In transit', status: 'General cargo departed from origin facility', completed: true },
     { date: 'May 16', time: '08:20 PM', location: 'In transit', status: 'Shipment in transit to destination', completed: true },
     { date: 'May 18', time: '10:15 AM', location: 'Texas, USA', status: 'Held in customs awaiting clearance fee payment', completed: false }
-    { date: 'May 18', time: '12:15 PM', location: 'Texas, USA', status: 'Held in customs awaiting clearance fee payment', completed: false }
   ]
  },
 
