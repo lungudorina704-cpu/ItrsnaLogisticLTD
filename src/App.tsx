@@ -107,8 +107,8 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'July 9', time: '12:45 AM', location: 'In transit', status: 'General cargo departed from origin facility', completed: true },
     { date: 'July 10', time: '11:20 AM', location: 'In transit', status: 'Shipment in transit to destination', completed: true },
     { date: 'July 11', time: '08:20 AM', location: 'Destination facility', status: 'Arrived at destination facility', completed: true },
-    { date: 'July 11', time: '10:15 AM', location: 'Mexicali, BC, Mexico', status: 'Held in customs awaiting clearance fee payment', completed: false }
-    { date: 'July 11', time: '12:15 PM', location: 'Mexicali, BC, Mexico', status: 'Out for delivery', completed: false }
+    { date: 'July 11', time: '10:15 AM', location: 'Mexicali, BC, Mexico', status: 'Held in customs awaiting clearance fee payment', completed: false },
+    { date: 'July 11', time: '12:15 PM', location: 'Mexicali, BC, Mexico', status: 'Out for delivery', completed: false },
   ]
  },
   
