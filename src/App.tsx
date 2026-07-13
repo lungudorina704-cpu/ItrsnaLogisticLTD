@@ -95,6 +95,20 @@ const sampleTrackingData: Record<string, TrackingData> = {
    ]
   },
 
+  'ITR78738977': {
+  trackingNumber: 'ITR78738977',
+  origin: 'Ben Gurion International Airport (TLV), Israel',
+  destination: 'Posadas, Misiones, Argentina',
+  estimatedDelivery: 'December 16, 2025',
+  status: 'processed',
+  events: [
+    { date: 'December 13, 2025', time: '09:00 AM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Shipment information received', completed: true },
+    { date: 'December 13, 2025', time: '10:15 AM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Package accepted and processed at origin facility', completed: true },
+    { date: 'December 14, 2025', time: '12:40 PM', location: 'In transit', status: 'In transit to destination country', completed: true },
+    { date: 'December 16, 2025', time: '03:10 PM', location: 'Posadas, Misiones, Argentina', status: 'Arrived at destination facility', completed: true },
+  ]
+ },
+  
   'ITR78738955': {
   trackingNumber: '78738955',
   origin: 'Tel Aviv (TLV), Israel',
