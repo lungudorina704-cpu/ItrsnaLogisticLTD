@@ -4,225 +4,227 @@ import {
   Menu, X, Phone, Mail, MapPin, ChevronRight, 
   Plane, Ship, Truck, Warehouse, ArrowRight, 
   CheckCircle, Clock, Package, Search, Globe,
-  Shield, Zap, BarChart3, Users, CreditCard, AlertTriangle
+  Shield, Zap, BarChart3, Users
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { toast } from 'sonner'
 import './App.css'
-
-// Paystack Public Key (Test Mode - replace with live key when activated)
-const PAYSTACK_PUBLIC_KEY = 'pk_test_2519edc73a85391f6d988e2fca9baab6234666c'
-
+ 
 // Tracking data type
-interface TrackingEvent { 
-  date: string
-  time: string
-  location: string
-  status: string
-  completed: boolean 
+ interface TrackingEvent { 
+ date: string
+ time: string
+ location: string
+ status: string
+ completed: boolean 
 }
-
 interface TrackingData {
   trackingNumber: string
   origin: string
   destination: string
   estimatedDelivery: string
   status: string
-  paymentStatus: 'pending' | 'paid' | 'not_required'
-  paymentAmount: number
-  paymentCurrency: string
-  recipientEmail: string
-  recipientPhone: string
-  recipientName: string
   events: TrackingEvent[]
 }
-
 const sampleTrackingData: Record<string, TrackingData> = {
   'ITR78738957': {
-    trackingNumber: 'ITR78738957',
-    origin: 'Glasgow Airport, United Kingdom',
-    destination: 'Wrocław, Poland',
-    estimatedDelivery: 'June 12, 2026',
-    status: 'Arrived at Destination Airport - Pending Customs Clearance',
-    paymentStatus: 'pending',
-    paymentAmount: 450,
-    paymentCurrency: 'PLN',
-    recipientEmail: 'recipient@example.com',
-    recipientPhone: '+48 123 456 789',
-    recipientName: 'Jan Kowalski',
-    events: [
-      { date: 'Jun 12', time: '02:15 AM', location: 'Wrocław, Poland', status: 'Out for delivery to the final recipient', completed: false },
-      { date: 'Jun 12', time: '11:15 AM', location: 'Wrocław, Poland', status: 'held in customs awaiting clearance fee payment', completed: false },
-      { date: 'Jun 12', time: '09:20 AM', location: 'Wrocław, Poland', status: 'Arrived at destination airport cargo terminal', completed: true },
-      { date: 'Jun 11', time: '05:45 PM', location: 'In transit (Airborne)', status: 'Flight departed from United Kingdom', completed: true },
-      { date: 'Jun 11', time: '03:30 PM', location: 'Glasgow Airport, United Kingdom', status: 'Loaded onto international flight', completed: true },
-      { date: 'Jun 10', time: '04:20 PM', location: 'Glasgow Airport, United Kingdom', status: 'Export customs clearance completed', completed: true },
-      { date: 'Jun 10', time: '11:10 AM', location: 'Glasgow Airport, United Kingdom', status: 'Processed at origin cargo facility', completed: true },
-      { date: 'Jun 09', time: '02:30 PM', location: 'Glasgow Airport, United Kingdom', status: 'Shipment registered', completed: true },
-      { date: 'Jun 09', time: '03:15 PM', location: 'Glasgow Airport, United Kingdom', status: 'Airway bill issued', completed: true },
-      { date: 'Jun 09', time: '04:00 PM', location: 'Glasgow Airport, United Kingdom', status: 'Cargo received by carrier', completed: true }
-    ]
-  },
+  trackingNumber: 'ITR78738957',
+  origin: 'Glasgow Airport, United Kingdom',
+  destination: 'Wrocław, Poland',
+  estimatedDelivery: 'June 12, 2026',
+  status: 'Arrived at Destination Airport - Pending Customs Clearance',
+  events: [
+    { date: 'Jun 12', time: '02:15 AM', location: 'Wrocław, Poland', status: 'Out for delivery to the final recipient', completed: false },
+    { date: 'Jun 12', time: '11:15 AM', location: 'Wrocław, Poland', status: 'held in customs awaiting clearance fee payment', completed: false },
+    { date: 'Jun 12', time: '09:20 AM', location: 'Wrocław, Poland', status: 'Arrived at destination airport cargo terminal', completed: true },
+    { date: 'Jun 11', time: '05:45 PM', location: 'In transit (Airborne)', status: 'Flight departed from United Kingdom', completed: true },
+    { date: 'Jun 11', time: '03:30 PM', location: 'Glasgow Airport, United Kingdom', status: 'Loaded onto international flight', completed: true },
+    { date: 'Jun 10', time: '04:20 PM', location: 'Glasgow Airport, United Kingdom', status: 'Export customs clearance completed', completed: true },
+    { date: 'Jun 10', time: '11:10 AM', location: 'Glasgow Airport, United Kingdom', status: 'Processed at origin cargo facility', completed: true },
+    { date: 'Jun 09', time: '02:30 PM', location: 'Glasgow Airport, United Kingdom', status: 'Shipment registered', completed: true },
+    { date: 'Jun 09', time: '03:15 PM', location: 'Glasgow Airport, United Kingdom', status: 'Airway bill issued', completed: true },
+    { date: 'Jun 09', time: '04:00 PM', location: 'Glasgow Airport, United Kingdom', status: 'Cargo received by carrier', completed: true }
+  ]
+ },
 
-  'ITR78738954': {
-    trackingNumber: 'ITR78738954',
-    origin: 'Tel Aviv (TLV), Israel',
-    destination: 'Sibiu, Romania',
-    estimatedDelivery: 'May 21, 2026',
-    status: 'in transit',
-    paymentStatus: 'pending',
-    paymentAmount: 380,
-    paymentCurrency: 'RON',
-    recipientEmail: 'recipient@example.com',
-    recipientPhone: '+40 123 456 789',
-    recipientName: 'Maria Popescu',
-    events: [
-      { date: 'May 18', time: '09:00 AM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Shipment information received', completed: true },
-      { date: 'May 19', time: '10:15 AM', location: 'Tel Aviv (TLV), Israel', status: 'Package accepted and processed at origin facility', completed: true },
-      { date: 'May 20', time: '12:40 PM', location: 'Paris, France', status: 'In transit to destination country', completed: true },
-      { date: 'May 21', time: '03:10 PM', location: 'Sibiu, Romania', status: 'Held in customs awaiting clearance fee payment', completed: false }
-    ] 
-  },
+  'ITR78738981': {
+  trackingNumber: 'ITR78738981',
+  origin: 'Halle, Saxony, Germany',
+  destination: 'Grünwald, Germany',
+  estimatedDelivery: 'July 10, 2026',
+  status: 'in transit',
+  events: [
+    { date: 'July 9', time: '08:00 AM', location: 'Schkeuditz, Germany', status: 'Shipment information received', completed: true },
+    { date: 'July 9', time: '02:30 PM', location: 'Halle, Saxony, Germany', status: 'Package accepted and processed at origin facility', completed: true },
+    { date: 'July 9', time: '04:00 PM', location: 'Schkeuditz, Germany', status: 'In transit to destination', completed: true },
+    { date: 'July 10', time: '06:30 AM', location: 'Grünwald, Germany', status: 'Arrived at destination facility', completed: true  },
+    { date: 'July 10', time: '08:15 AM', location: 'Grünwald, Germany', status: 'Held in customs awaiting clearance fee payment', completed: false },
+    { date: 'July 10', time: '10:00 AM', location: 'Grünwald, Germany', status: 'Out for delivery', completed: false }
+  ]
+ },
+    
+  'ITR78738964': {
+  trackingNumber: 'ITR78738964',
+  origin: 'Tel Aviv (TLV), Israel',
+  destination: 'Sibiu, Romania',
+  estimatedDelivery: 'May 21, 2026',
+  status: 'in transit',
+  events: [
+    { date: 'May 18', time: '09:00 AM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Shipment information received', completed: true },
+    { date: 'May 19', time: '10:15 AM', location: 'Tel Aviv (TLV), Israel', status: 'Package accepted and processed at origin facility', completed: true },
+    { date: 'May 20', time: '12:40 PM', location: 'Paris, France', status: 'In transit to destination country', completed: true },
+    { date: 'May 21', time: '03:10 PM', location: 'Sibiu, Romania', status: 'Held in customs awaiting clearance fee payment', completed: false }
+  ] 
+ },
 
   'ITR78738953': {
-    trackingNumber: 'ITR78738953',
-    origin: 'Tel Aviv (TLV), Israel',
-    destination: 'Paris, France',
-    estimatedDelivery: 'May 18, 2026',
-    status: 'Processed',
-    paymentStatus: 'pending',
-    paymentAmount: 120,
-    paymentCurrency: 'EUR',
-    recipientEmail: 'recipient@example.com',
-    recipientPhone: '+33 1 23 45 67 89',
-    recipientName: 'Pierre Dubois',
-    events: [
-      { date: 'May 16', time: '09:00 AM', location: 'Tel Aviv (TLV), Israel', status: 'Shipment information received', completed: true },
-      { date: 'May 16', time: '12:30 PM', location: 'Tel Aviv (TLV), Israel', status: 'Shipment processed at origin facility', completed: true },
-      { date: 'May 17', time: '08:00 AM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Scheduled departure from origin facility', completed: true },
-      { date: 'May 17', time: '02:45 PM', location: 'In Transit', status: 'In transit to destination country', completed: true },
-      { date: 'May 18', time: '10:15 AM', location: 'Paris, France', status: 'Arrival at destination facility', completed: true },
-      { date: 'May 18', time: '—', location: 'Paris, France', status: 'Held in customs awaiting clearance fee payment', completed: false }
-    ]
+  trackingNumber: 'ITR78738953',
+  origin: 'Tel Aviv (TLV), Israel',
+  destination: 'Paris, France',
+  estimatedDelivery: 'May 18, 2026',
+  status: 'Processed',
+  events: [
+    { date: 'May 16', time: '09:00 AM', location: 'Tel Aviv (TLV), Israel', status: 'Shipment information received', completed: true },
+    { date: 'May 16', time: '12:30 PM', location: 'Tel Aviv (TLV), Israel', status: 'Shipment processed at origin facility', completed: true },
+    { date: 'May 17', time: '08:00 AM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Scheduled departure from origin facility', completed: true },
+    { date: 'May 17', time: '02:45 PM', location: 'In Transit', status: 'In transit to destination country', completed: true },
+    { date: 'May 18', time: '10:15 AM', location: 'Paris, France', status: 'Arrival at destination facility', completed: true },
+    { date: 'May 18', time: '—', location: 'Paris, France', status: 'Held in customs awaiting clearance fee payment', completed: false }
+   ]
   },
 
+  'ITR78738977': {
+  trackingNumber: 'ITR78738977',
+  origin: 'Ben Gurion International Airport (TLV), Israel',
+  destination: 'Posadas, Misiones, Argentina',
+  estimatedDelivery: 'December 16, 2025',
+  status: 'processed',
+  events: [
+    { date: 'December 13, 2025', time: '09:00 AM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Shipment information received', completed: true },
+    { date: 'December 13, 2025', time: '10:15 AM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Package accepted and processed at origin facility', completed: true },
+    { date: 'December 14, 2025', time: '12:40 PM', location: 'In transit', status: 'In transit to destination country', completed: true },
+    { date: 'December 16, 2025', time: '03:10 PM', location: 'Posadas, Misiones, Argentina', status: 'Arrived at destination facility', completed: true },
+  ]
+ },
+  
   'ITR78738955': {
-    trackingNumber: 'ITR78738955',
-    origin: 'Tel Aviv (TLV), Israel',
-    destination: 'Romania',
-    estimatedDelivery: 'June 7, 2026',
-    status: 'In Transit to Destination',
-    paymentStatus: 'pending',
-    paymentAmount: 420,
-    paymentCurrency: 'RON',
-    recipientEmail: 'recipient@example.com',
-    recipientPhone: '+40 123 456 789',
-    recipientName: 'Ion Georgescu',
-    events: [
-      { date: 'Jun 07', time: '10:15 AM', location: 'Romania', status: 'Out for delivery', completed: false },
-      { date: 'Jun 06', time: '03:30 PM', location: 'Romania', status: 'Held in customs awaiting customs clearance', completed: false },
-      { date: 'Jun 06', time: '02:30 PM', location: 'Bucharest, Romania', status: 'Arrived at destination airport', completed: true },
-      { date: 'Jun 05', time: '11:45 PM', location: 'In Transit (Airborne)', status: 'International flight departed', completed: true },
-      { date: 'Jun 05', time: '10:15 AM', location: 'Ben Gurion (TLV), Israel', status: 'Export customs clearance completed', completed: true },
-      { date: 'Jun 04', time: '02:30 PM', location: 'Ben Gurion (TLV), Israel', status: 'Shipment processed and prepared for dispatch', completed: true },
-      { date: 'Jun 04', time: '11:45 AM', location: 'Ben Gurion (TLV), Israel', status: 'Airway bill issued', completed: true },
-      { date: 'Jun 04', time: '10:30 AM', location: 'Tel Aviv, Israel', status: 'Shipment registered', completed: true }
-    ]
-  },
+  trackingNumber: '78738955',
+  origin: 'Tel Aviv (TLV), Israel',
+  destination: 'Mexicali, BC, Mexico',
+  estimatedDelivery: 'July 11, 2026',
+  status: 'Processed',
+  events: [
+    { date: 'July 8', time: '09:00 AM', location: 'Tel Aviv (TLV), Israel', status: 'Shipment registered and processed', completed: true },
+    { date: 'July 8', time: '02:30 PM', location: 'Ben Gurion International Airport (TLV)', status: 'Airway bill issued and verified', completed: true },
+    { date: 'July 9', time: '12:45 AM', location: 'In transit', status: 'General cargo departed from origin facility', completed: true },
+    { date: 'July 10', time: '11:20 AM', location: 'In transit', status: 'Shipment in transit to destination', completed: true },
+    { date: 'July 11', time: '08:20 AM', location: 'Destination facility', status: 'Arrived at destination facility', completed: true },
+    { date: 'July 11', time: '10:15 AM', location: 'Mexicali, BC, Mexico', status: 'Held in customs awaiting clearance fee payment', completed: false },
+    { date: 'July 11', time: '12:15 PM', location: 'Mexicali, BC, Mexico', status: 'Out for delivery', completed: false },
+  ]
+ },
+  
+'ITR78738952': {
+  trackingNumber: '78738952',
+  origin: 'Tel Aviv (TLV), Israel',
+  destination: 'Texas, USA',
+  estimatedDelivery: 'May 18, 2026',
+  status: 'Processed',
+  events: [
+    { date: 'May 14', time: '09:00 AM', location: 'Tel Aviv (TLV), Israel', status: 'Shipment registered and processed', completed: true },
+    { date: 'May 14', time: '02:30 PM', location: 'Ben Gurion International Airport (TLV)', status: 'Airway bill issued and verified', completed: true },
+    { date: 'May 15', time: '11:45 AM', location: 'In transit', status: 'General cargo departed from origin facility', completed: true },
+    { date: 'May 16', time: '08:20 PM', location: 'In transit', status: 'Shipment in transit to destination', completed: true },
+    { date: 'May 18', time: '10:15 AM', location: 'Texas, USA', status: 'Held in customs awaiting clearance fee payment', completed: false }
+  ]
+ },
 
-  'ITR78738952': {
-    trackingNumber: '78738952',
-    origin: 'Tel Aviv (TLV), Israel',
-    destination: 'Texas, USA',
-    estimatedDelivery: 'May 18, 2026',
-    status: 'Processed',
-    paymentStatus: 'pending',
-    paymentAmount: 85,
-    paymentCurrency: 'USD',
-    recipientEmail: 'recipient@example.com',
-    recipientPhone: '+1 512 345 6789',
-    recipientName: 'John Smith',
-    events: [
-      { date: 'May 14', time: '09:00 AM', location: 'Tel Aviv (TLV), Israel', status: 'Shipment registered and processed', completed: true },
-      { date: 'May 14', time: '02:30 PM', location: 'Ben Gurion International Airport (TLV)', status: 'Airway bill issued and verified', completed: true },
-      { date: 'May 15', time: '11:45 AM', location: 'In transit', status: 'General cargo departed from origin facility', completed: true },
-      { date: 'May 16', time: '08:20 PM', location: 'In transit', status: 'Shipment in transit to destination', completed: true },
-      { date: 'May 18', time: '10:15 AM', location: 'Texas, USA', status: 'Held in customs awaiting clearance fee payment', completed: false }
-    ]
-  },
+'ITR78738961': {
+  trackingNumber: 'ITR78738961', 
+  origin: 'Ben Gurion International Airport (TLV), Israel',
+  destination: 'Wyndham Vale, Victoria 3024, Australia',
+  estimatedDelivery: 'July 9, 2026',
+  status: 'Shipment In Transit',
+  events: [
+    { date: 'Jul 9', time: '08:30 AM', location: 'Wyndham Vale, Victoria, Australia', status: 'Out for delivery', completed: false },
+    { date: 'Jul 9', time: '06:30 AM', location: 'Melbourne, Victoria, Australia', status: 'Awating custom clearance fee', completed: false },
+    { date: 'Jul 8', time: '05:40 PM', location: 'Melbourne, Victoria, Australia', status: 'Customs inspection in progress', completed: true },
+    { date: 'Jul 9', time: '06:30 AM', location: 'Melbourne, Victoria, Australia', status: 'Arrived at local delivery facility', completed: true },
+    { date: 'Jul 8', time: '11:20 AM', location: 'Melbourne Airport, Australia', status: 'Arrived in destination country', completed: true },
+    { date: 'Jul 7', time: '09:45 PM', location: 'In transit (Airborne)', status: 'Flight departed transit hub', completed: true },
+    { date: 'Jul 7', time: '03:30 PM', location: 'Singapore', status: 'Shipment transferred at transit hub', completed: true },
+    { date: 'Jul 7', time: '10:15 AM', location: 'In transit (Airborne)', status: 'Flight departed from origin country', completed: true },
+    { date: 'Jul 6', time: '04:50 PM', location: 'Ben Gurion (TLV), Israel', status: 'Export customs clearance completed', completed: true },
+    { date: 'Jul 6', time: '02:15 PM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Processed at origin facility', completed: true },
+    { date: 'Jul 6', time: '09:00 AM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Shipment registered', completed: true }
+  ]
+},
+
+  'ITR78738962': {
+  trackingNumber: 'ITR78738962',
+  origin: 'Dubai International Airport (DXB), Dubai, United Arab Emirates',
+  destination: 'Aylesbury, Buckinghamshire HP20 2GN, United Kingdom',
+  estimatedDelivery: 'July 7, 2026',
+  status: 'Shipment In Transit', 
+  events: [
+    { date: 'Jul 7', time: '02:30 PM', location: 'Aylesbury, Buckinghamshire, UK', status: 'Held in customs awaiting clearance fees before final delivery', completed: false },
+    { date: 'Jul 7', time: '09:30 AM', location: 'Aylesbury, Buckinghamshire, UK', status: 'Arrived at local delivery facility', completed: true },
+    { date: 'Jul 6', time: '05:40 PM', location: 'London, UK', status: 'Customs clearance in progress', completed: true },
+    { date: 'Jul 6', time: '02:15 PM', location: 'Dubai International Airport (DXB), UAE', status: 'Departed origin facility', completed: true },
+    { date: 'Jul 6', time: '09:00 AM', location: 'Dubai International Airport (DXB), UAE', status: 'Shipment registered', completed: true }
+  ]
+},
 
   'ITR78738951': {
-    trackingNumber: 'ITR78738951',
-    origin: 'Tel Aviv (TLV), Israel',
-    destination: 'Senec, Slovakia',  
-    estimatedDelivery: 'June 2, 2026',
-    status: 'Express Shipment In Transit',
-    paymentStatus: 'pending',
-    paymentAmount: 65,
-    paymentCurrency: 'EUR',
-    recipientEmail: 'recipient@example.com',
-    recipientPhone: '+421 123 456 789',
-    recipientName: 'Ján Novák',
-    events: [
-      { date: 'Jun 03', time: '08:35 AM', location: 'Senec, Slovakia', status: 'Out for express delivery', completed: false },
-      { date: 'Jun 03', time: '10:00 AM', location: 'Bratislava, Slovakia', status: 'Held in customs awaiting customs clearance', completed: false },
-      { date: 'Jun 02', time: '08:30 AM', location: 'Bratislava, Slovakia', status: 'Arrived at destination sorting facility', completed: true },
-      { date: 'Jun 01', time: '10:45 PM', location: 'Vienna, Austria', status: 'Shipment transferred at transit hub', completed: true },
-      { date: 'Jun 01', time: '09:30 PM', location: 'In transit (Airborne)', status: 'Flight landed/Arrived at transit hub', completed: true },
-      { date: 'Jun 01', time: '12:00 PM', location: 'Ben Gurion (TLV), Israel', status: 'Export customs clearance & security scan completed', completed: true },
-      { date: 'May 31', time: '10:00 PM', location: 'Ben Gurion (TLV), Israel', status: 'Shipment departed from origin facility', completed: true },
-      { date: 'May 31', time: '02:30 PM', location: 'Tel Aviv, Israel', status: 'Processed at origin facility', completed: true },
-      { date: 'May 30', time: '11:25 AM', location: 'Tel Aviv, Israel', status: 'Shipment registered', completed: true },
-      { date: 'May 30', time: '08:10 AM', location: 'Tel Aviv, Israel', status: 'Picked up by carrier', completed: true }
-    ] 
-  } 
-};
-
-// Load Paystack script dynamically
-const loadPaystackScript = (): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    if (document.getElementById('paystack-script')) {
-      resolve();
-      return;
-    }
-    const script = document.createElement('script');
-    script.id = 'paystack-script';
-    script.src = 'https://js.paystack.co/v1/inline.js';
-    script.onload = () => resolve();
-    script.onerror = () => reject(new Error('Failed to load Paystack'));
-    document.body.appendChild(script);
-  });
+  trackingNumber: 'ITR78738951',
+  origin: 'Tel Aviv (TLV), Israel',
+  destination: 'Pogoanele, Buzău County, Romania',
+  estimatedDelivery: 'June 26, 2026',
+  status: 'Shipment In Transit',
+  events: [
+    { date: 'Jun 26', time: '08:30 AM', location: 'Pogoanele, Romania', status: 'Out for delivery', completed: false },
+    { date: 'Jun 26', time: '06:30 PM', location: 'Bucharest, Romania', status: 'Held in Customs Awaiting Clearance Fee', completed: false },
+    { date: 'Jun 26', time: '07:15 AM', location: 'Bucharest, Romania', status: 'Arrived at local delivery facility', completed: true },
+    { date: 'Jun 25', time: '05:40 PM', location: 'Bucharest, Romania', status: 'Customs clearance in progress', completed: true },
+    { date: 'Jun 25', time: '11:20 AM', location: 'Bucharest Henri Coanda Airport, Romania', status: 'Arrived in destination country', completed: true },
+    { date: 'Jun 24', time: '09:45 PM', location: 'In transit (Airborne)', status: 'Flight departed transit hub', completed: true },
+    { date: 'Jun 24', time: '03:30 PM', location: 'Athens, Greece', status: 'Shipment transferred at transit hub', completed: true },
+    { date: 'Jun 24', time: '10:15 AM', location: 'In transit (Airborne)', status: 'Flight departed from origin country', completed: true },
+    { date: 'Jun 23', time: '04:50 PM', location: 'Ben Gurion (TLV), Israel', status: 'Export customs clearance completed', completed: true },
+    { date: 'Jun 23', time: '02:15 PM', location: 'Tel Aviv, Israel', status: 'Processed at origin facility', completed: true },
+    { date: 'Jun 23', time: '09:00 AM', location: 'Tel Aviv, Israel', status: 'Shipment registered', completed: true }
+  ]
+} 
 };
 
 function App() {
+
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+ 
     emailjs.sendForm(
-      'service_vm89se5',
-      'template_5a5aqca',
-      e.currentTarget,
-      'xrCyEx9urDpKKAyGw'
-    )
-    .then(() => {
-      alert('Message sent successfully!');
-    })
-    .catch((error) => {
-      console.log(error);
-      alert('Failed to send message.');
-    });
+  'service_vm89se5',
+  'template_5a5aqca',
+  e.currentTarget,
+  'xrCyEx9urDpKKAyGw'
+)
+.then(() => {
+  alert('Message sent successfully!');
+})
+.catch((error) => {
+  console.log(error);
+  alert('Failed to send message.');
+});
   };
-
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [trackingNumber, setTrackingNumber] = useState('')
-  const [trackingData, setTrackingData] = useState<TrackingData | null>(null)
+  const [trackingData, setTrackingData] = useState<any>(null)
   const [isTrackingDialogOpen, setIsTrackingDialogOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [quoteForm, setQuoteForm] = useState({ name: '', email: '', phone: '', message: '' })
-  const [isPaying, setIsPaying] = useState(false)
-  const [paymentSuccess, setPaymentSuccess] = useState(false)
-
+  
   const heroRef = useRef<HTMLDivElement>(null)
   const aboutRef = useRef<HTMLDivElement>(null)
   const servicesRef = useRef<HTMLDivElement>(null)
@@ -236,80 +238,30 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Load Paystack script on mount
-  useEffect(() => {
-    loadPaystackScript().catch(err => console.error('Paystack load error:', err));
-  }, []);
-
   const handleTrack = () => {
-    if (!trackingNumber.trim()) {
-      toast.error('Please enter a tracking number')
-      return
-    }
-    const upperTracking = trackingNumber.toUpperCase()
-    const data = sampleTrackingData[upperTracking]
-    if (data) {
-      setTrackingData(data)
-      setIsTrackingDialogOpen(true)
-      setPaymentSuccess(false)
-      return
-    }
-    toast.error('Tracking code not found')
+  // Check empty input
+  if (!trackingNumber.trim()) {
+    toast.error('Please enter a tracking number')
+    return
   }
 
-  // Check if shipment requires payment (has "customs" or "clearance" in status)
-  const requiresPayment = (data: TrackingData): boolean => {
-    const statusLower = data.status.toLowerCase();
-    const hasCustomsEvent = data.events.some(e => 
-      e.status.toLowerCase().includes('customs') || 
-      e.status.toLowerCase().includes('clearance') ||
-      e.status.toLowerCase().includes('payment')
-    );
-    return hasCustomsEvent && data.paymentStatus === 'pending';
-  };
+  // Convert to uppercase
+  const upperTracking = trackingNumber.toUpperCase()
 
-  // Handle Paystack Payment
-  const handlePaystackPayment = async () => {
-    if (!trackingData) return;
+  // Check if tracking exists
+  const data = (sampleTrackingData as any)[upperTracking]
 
-    setIsPaying(true);
+  if (data) {
+    setTrackingData(data)
+    setIsTrackingDialogOpen(true)
+    return
+  }
 
-    try {
-      await loadPaystackScript();
+  // Not found
+  toast.error('Tracking code not found')
+}
 
-      const handler = (window as any).PaystackPop.setup({
-        key: PAYSTACK_PUBLIC_KEY,
-        email: trackingData.recipientEmail,
-        amount: trackingData.paymentAmount * 100, // Convert to kobo/cents
-        currency: trackingData.paymentCurrency,
-        ref: `ITR-${trackingData.trackingNumber}-${Date.now()}`,
-        metadata: {
-          custom_fields: [
-            { display_name: "Tracking Number", variable_name: "tracking_number", value: trackingData.trackingNumber },
-            { display_name: "Recipient Name", variable_name: "recipient_name", value: trackingData.recipientName },
-            { display_name: "Destination", variable_name: "destination", value: trackingData.destination }
-          ]
-        },
-        callback: function(response: any) {
-          setPaymentSuccess(true);
-          setIsPaying(false);
-          toast.success(`Payment successful! Reference: ${response.reference}`);
-          // Update local state
-          setTrackingData(prev => prev ? { ...prev, paymentStatus: 'paid' } : null);
-        },
-        onClose: function() {
-          setIsPaying(false);
-          toast.info('Payment window closed');
-        }
-      });
-
-      handler.openIframe();
-    } catch (error) {
-      setIsPaying(false);
-      toast.error('Payment initialization failed');
-      console.error(error);
-    }
-  };
+  
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement | null>) => {
     ref.current?.scrollIntoView({ behavior: 'smooth' })
@@ -354,7 +306,7 @@ function App() {
     <div className="min-h-screen bg-white">
       {/* Grain Overlay */}
       <div className="grain-overlay" />
-
+      
       {/* Navigation */}
       <header 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -396,13 +348,13 @@ function App() {
             {/* Contact Info */}
             <div className="hidden lg:flex items-center gap-6">
               <a 
-                href="mailto:itranslogisticltd@email.com" 
+                href="mailto:info@itranslo.itranslogisticsltd.com" 
                 className={`flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors ${
                   isScrolled ? 'text-text-dark' : 'text-white'
                 }`}
               >
                 <Mail className="w-4 h-4" />
-                <span>itranslogisticltd@email.com</span>
+                <span>info@itranslo.itranslogisticsltd.com</span>
               </a>
               <Button 
                 onClick={() => scrollToSection(quoteRef)}
@@ -441,11 +393,11 @@ function App() {
                 </button>
               ))}
               <a 
-                href="mailto:itranslogisticltd@email.com" 
+                href="mailto:info@itranslo.itranslogisticsltd.com" 
                 className="flex items-center gap-2 text-text-dark text-sm py-2"
               >
                 <Mail className="w-4 h-4" />
-                itranslogisticltd@email.com
+                info@itranslo.itranslogisticsltd.com
               </a>
             </nav>
           </div>
@@ -471,13 +423,13 @@ function App() {
               <Zap className="w-4 h-4 text-primary" />
               <span className="text-white text-sm font-medium">Global Logistics Solutions</span>
             </div>
-
+            
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight mb-6">
               Logistics & Supply Chain Solutions
             </h1>
-
+            
             <p className="text-white/90 text-lg sm:text-xl max-w-2xl mb-8 font-body">
-              We are the leading logistics provider, ensuring your goods move seamlessly across the globe. From air freight to ocean shipping, we&apos;ve got you covered.
+              We are the leading logistics provider, ensuring your goods move seamlessly across the globe. From air freight to ocean shipping, we've got you covered.
             </p>
 
             {/* Tracking Input */}
@@ -506,7 +458,7 @@ function App() {
                 </Button>
               </div>
               <p className="text-white/60 text-xs mt-3">
-                Try sample tracking numbers: ITR78738957, ITR78738954, ITR78738953
+                Try sample tracking numbers: ITR123456789 or ITR987654321
               </p>
             </div>
 
@@ -552,15 +504,15 @@ function App() {
                 <div className="w-8 h-[2px] bg-primary" />
                 About Us
               </div>
-
+              
               <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-black mb-6">
                 Your Trusted Logistics Partner
               </h2>
-
+              
               <p className="text-text-dark text-lg leading-relaxed mb-6">
                 With over two decades of experience, iTrans Logistics has revolutionized the way businesses handle their supply chains. We combine cutting-edge technology with robust infrastructure to deliver unparalleled service.
               </p>
-
+              
               <p className="text-text-light leading-relaxed mb-8">
                 Our global network spans 150+ countries, enabling us to provide seamless logistics solutions tailored to your unique needs. From small businesses to enterprise corporations, we handle every shipment with the same level of care and professionalism.
               </p>
@@ -660,11 +612,11 @@ function App() {
                 <div className="w-8 h-[2px] bg-primary" />
                 Request a Quote
               </div>
-
+              
               <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-black mb-6">
                 Get Your Free Quote Today
               </h2>
-
+              
               <p className="text-text-light text-lg mb-12">
                 Fill out the form and our team will get back to you within 24 hours with a customized quote for your logistics needs.
               </p>
@@ -672,7 +624,7 @@ function App() {
               <div className="space-y-6">
                 {[
                   { icon: Phone, label: 'Phone', value: '+1 (806) 671-0011' },
-                  { icon: Mail, label: 'Email', value: 'itranslogisticltd@email.com' },
+                  { icon: Mail, label: 'Email', value: 'info@itranslo.itranslogisticsltd.com' },
                   { icon: MapPin, label: 'Address', value: '123 Logistics Way, Houston, TX 77001' },
                 ].map((contact: any, index: number) => (
                   <div key={index} className="flex items-start gap-4">
@@ -692,66 +644,67 @@ function App() {
               </div>
             </div>
 
-            {/* Quote Form */}
-            <div className="bg-gray-50 rounded-2xl p-8 lg:p-10">
-              <form onSubmit={sendEmail} className="space-y-6">
-                <div>
-                  <label className="block text-text-dark font-medium mb-2">Full Name *</label>
-                  <Input
-                    name="user_name"
-                    type="text"
-                    placeholder="John Doe"
-                    value={quoteForm.name}
-                    onChange={(e) => setQuoteForm({ ...quoteForm, name: e.target.value })}
-                    className="w-full"
-                  />
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-4">
+            <div>
+              <div className="bg-gray-50 rounded-2xl p-8 lg:p-10">
+                <form onSubmit={sendEmail} className="space-y-6">
                   <div>
-                    <label className="block text-text-dark font-medium mb-2">Email *</label>
+                    <label className="block text-text-dark font-medium mb-2">Full Name *</label>
                     <Input
-                      name="user_email"
-                      type="email"
-                      placeholder="john@example.com"
-                      value={quoteForm.email}
-                      onChange={(e) => setQuoteForm({ ...quoteForm, email: e.target.value })}
+                      name="user_name"
+                      type="text"
+                      placeholder="John Doe"
+                      value={quoteForm.name}
+                      onChange={(e) => setQuoteForm({ ...quoteForm, name: e.target.value })}
                       className="w-full"
                     />
                   </div>
 
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-text-dark font-medium mb-2">Email *</label>
+                      <Input
+                        name="user_email"
+                        type="email"
+                        placeholder="john@example.com"
+                        value={quoteForm.email}
+                        onChange={(e) => setQuoteForm({ ...quoteForm, email: e.target.value })}
+                        className="w-full"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-text-dark font-medium mb-2">Phone</label>
+                      <Input
+                        name="user_phone"
+                        type="tel"
+                        placeholder="+1 (555) 000-0000"
+                        value={quoteForm.phone}
+                        onChange={(e) => setQuoteForm({ ...quoteForm, phone: e.target.value })}
+                        className="w-full"
+                      />
+                    </div>
+                  </div>
+
                   <div>
-                    <label className="block text-text-dark font-medium mb-2">Phone</label>
-                    <Input
-                      name="user_phone"
-                      type="tel"
-                      placeholder="+1 (555) 000-0000"
-                      value={quoteForm.phone}
-                      onChange={(e) => setQuoteForm({ ...quoteForm, phone: e.target.value })}
-                      className="w-full"
+                    <label className="block text-text-dark font-medium mb-2">Message *</label>
+                    <textarea
+                      name="message"
+                      rows={4}
+                      placeholder="Tell us about your logistics needs..."
+                      value={quoteForm.message}
+                      onChange={(e) => setQuoteForm({ ...quoteForm, message: e.target.value })}
+                      className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl"
                     />
                   </div>
-                </div>
 
-                <div>
-                  <label className="block text-text-dark font-medium mb-2">Message *</label>
-                  <textarea
-                    name="message"
-                    rows={4}
-                    placeholder="Tell us about your logistics needs..."
-                    value={quoteForm.message}
-                    onChange={(e) => setQuoteForm({ ...quoteForm, message: e.target.value })}
-                    className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl"
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  className="w-full bg-primary hover:bg-primary-600 text-white py-6 rounded-xl font-medium"
-                >
-                  Submit Request
-                </Button>
-              </form>
+                  <Button
+                    type="submit"
+                    className="w-full bg-primary hover:bg-primary-600 text-white py-6 rounded-xl font-medium"
+                  >
+                    Submit Request
+                  </Button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -850,70 +803,9 @@ function App() {
           <DialogHeader>
             <DialogTitle className="font-display text-2xl">Shipment Tracking</DialogTitle>
           </DialogHeader>
-
+          
           {trackingData && (
             <div className="mt-4">
-              {/* Payment Alert Banner */}
-              {requiresPayment(trackingData) && trackingData.paymentStatus === 'pending' && !paymentSuccess && (
-                <div className="bg-orange-50 border-2 border-orange-200 rounded-xl p-5 mb-6">
-                  <div className="flex items-start gap-3">
-                    <AlertTriangle className="w-6 h-6 text-orange-500 flex-shrink-0 mt-0.5" />
-                    <div className="flex-1">
-                      <h3 className="font-display font-bold text-orange-800 text-lg mb-1">
-                        Customs Clearance Fee Required
-                      </h3>
-                      <p className="text-orange-700 text-sm mb-3">
-                        Your shipment has arrived at the destination and is held in customs. 
-                        Please complete the payment to release your luggage for delivery.
-                      </p>
-                      <div className="flex items-center justify-between bg-white rounded-lg p-3 mb-3">
-                        <span className="text-text-light text-sm">Amount Due:</span>
-                        <span className="font-display text-2xl font-bold text-primary">
-                          {trackingData.paymentAmount} {trackingData.paymentCurrency}
-                        </span>
-                      </div>
-                      <Button
-                        onClick={handlePaystackPayment}
-                        disabled={isPaying}
-                        className="w-full bg-primary hover:bg-primary-600 text-white py-5 rounded-xl font-medium text-lg"
-                      >
-                        {isPaying ? (
-                          <span className="flex items-center gap-2">
-                            <Clock className="w-5 h-5 animate-spin" />
-                            Processing...
-                          </span>
-                        ) : (
-                          <span className="flex items-center gap-2">
-                            <CreditCard className="w-5 h-5" />
-                            Pay with Debit Card
-                          </span>
-                        )}
-                      </Button>
-                      <p className="text-orange-600/60 text-xs mt-2 text-center">
-                        Secured by Paystack — Accepts all international debit cards
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Payment Success Banner */}
-              {paymentSuccess && (
-                <div className="bg-green-50 border-2 border-green-200 rounded-xl p-5 mb-6">
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0" />
-                    <div>
-                      <h3 className="font-display font-bold text-green-800 text-lg">
-                        Payment Successful!
-                      </h3>
-                      <p className="text-green-700 text-sm">
-                        Your customs clearance fee has been paid. Your shipment is now released for delivery.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )}
-
               {/* Tracking Header */}
               <div className="bg-primary/5 rounded-xl p-4 mb-6">
                 <div className="grid sm:grid-cols-2 gap-4">
