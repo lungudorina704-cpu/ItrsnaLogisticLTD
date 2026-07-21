@@ -108,7 +108,23 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'December 16, 2025', time: '03:10 PM', location: 'Posadas, Misiones, Argentina', status: 'Arrived at destination facility', completed: true },
   ]
  },
-  
+
+  'ITR78738971': {
+  trackingNumber: '78738971',
+  origin: 'Tel Aviv (TLV), Israel',
+  destination: 'Amărăștii de Jos, Dolj, Romania',
+  estimatedDelivery: 'July 24, 2026',
+  status: 'Processed',
+  events: [
+    { date: 'July 21', time: '07:51 AM', location: 'Tel Aviv (TLV), Israel', status: 'Shipment registered and processed', completed: true },
+    { date: 'July 21', time: '08:30 AM', location: 'Ben Gurion International Airport (TLV)', status: 'Airway bill issued and verified', completed: true },
+    { date: 'July 21', time: '03:00 PM', location: 'In transit', status: 'General cargo departed from origin facility', completed: true },
+    { date: 'July 22', time: '11:20 AM', location: 'In transit', status: 'Shipment in transit to destination', completed: false },
+    { date: 'July 24', time: '08:00 AM', location: 'Destination facility', status: 'Arrived at destination facility', completed: false },
+    { date: 'July 24', time: '10:00 AM', location: 'Amărăștii de Jos, Dolj, Romania', status: 'Out for delivery', completed: false },
+  ]
+},
+    
   'ITR78738955': {
   trackingNumber: '78738955',
   origin: 'Tel Aviv (TLV), Israel',
