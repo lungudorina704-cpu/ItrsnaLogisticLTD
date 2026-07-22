@@ -178,6 +178,27 @@ const sampleTrackingData: Record<string, TrackingData> = {
   ]
 },
 
+  'ITR90125677': {
+  trackingNumber: 'ITR90125677',
+  origin: 'Tel Aviv (TLV), Israel',
+  destination: 'Oklahoma, United States',
+  estimatedDelivery: 'July 25, 2026',
+  status: 'Processed',
+  events: [
+    { date: 'July 22', time: '08:15 AM', location: 'Tel Aviv (TLV), Israel', status: 'Shipment information received', completed: true },
+    { date: 'July 22', time: '10:42 AM', location: 'Tel Aviv (TLV), Israel', status: 'Shipment processed at origin facility', completed: true },
+    { date: 'July 22', time: '03:20 PM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Scheduled departure from origin facility', completed: true },
+    { date: 'July 22', time: '06:00 PM', location: 'In Transit', status: 'In transit to destination country', completed: true },
+    { date: 'July 23', time: '07:30 AM', location: 'John F. Kennedy International Airport (JFK), New York, United States', status: 'Arrival at intermediate transit facility', completed: false },
+    { date: 'July 23', time: '11:45 AM', location: 'John F. Kennedy International Airport (JFK), New York, United States', status: 'Customs clearance processing', completed: false },
+    { date: 'July 23', time: '04:20 PM', location: 'John F. Kennedy International Airport (JFK), New York, United States', status: 'Departed from intermediate facility', completed: false },
+    { date: 'July 24', time: '06:15 AM', location: 'Dallas/Fort Worth International Airport (DFW), Texas, United States', status: 'Arrival at regional sorting facility', completed: false },
+    { date: 'July 24', time: '09:30 AM', location: 'Dallas/Fort Worth International Airport (DFW), Texas, United States', status: 'Departed from regional sorting facility', completed: false },
+    { date: 'July 25', time: '07:00 AM', location: 'Oklahoma City, Oklahoma, United States', status: 'Arrival at destination facility', completed: false },
+    { date: 'July 25', time: '02:00 PM', location: 'Miami, Oklahoma 75354, United States', status: 'Delivered — Signed by: A. Duley', completed: false }
+  ]
+},
+    
   'ITR78738962': {
   trackingNumber: 'ITR78738962',
   origin: 'Dubai International Airport (DXB), Dubai, United Arab Emirates',
