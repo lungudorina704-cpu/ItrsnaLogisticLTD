@@ -64,6 +64,29 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'July 10', time: '10:00 AM', location: 'Grünwald, Germany', status: 'Out for delivery', completed: false }
   ]
  },
+
+  'ITR78738907': {
+  trackingNumber: 'ITR78738907',
+  origin: 'Tel Aviv (TLV), Israel',
+  destination: 'Vienna, Austria',
+  estimatedDelivery: 'July 30, 2026',
+  status: 'Processed',
+  sender: 'Thomas Probst',
+  receiver: 'Helga Moutvitz',
+  receiverAddress: '1160 Wien, Zwinzstraße 15-21, Stiege 31, Tür 4, Austria',
+  weight: '28.50 kg',
+  dimensions: '60 x 40 x 60 cm',
+  volume: '1,200 cm³',
+  totalFee: '$2,500.00',
+  events: [
+    { date: 'July 28', time: '09:00 AM', location: 'Tel Aviv (TLV), Israel', status: 'Shipment information received', completed: true },
+    { date: 'July 28', time: '12:30 PM', location: 'Tel Aviv (TLV), Israel', status: 'Shipment processed at origin facility', completed: true },
+    { date: 'July 29', time: '08:00 AM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Scheduled departure from origin facility', completed: false },
+    { date: 'July 29', time: '02:45 PM', location: 'In Transit', status: 'In transit to destination country', completed: false },
+    { date: 'July 30', time: '10:15 AM', location: 'Vienna, Austria', status: 'Arrival at destination facility', completed: false },
+    { date: 'July 30', time: '—', location: 'Vienna, Austria', status: 'Held in customs awaiting clearance fee payment', completed: false }
+  ]
+},
     
   'ITR78738964': {
   trackingNumber: 'ITR78738964',
