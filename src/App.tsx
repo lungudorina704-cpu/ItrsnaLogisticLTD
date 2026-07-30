@@ -59,7 +59,7 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'July 28', time: '08:30 AM', location: 'Tel Aviv, Israel', status: 'Shipment information received', completed: true },
     { date: 'July 28', time: '11:15 AM', location: 'Ben Gurion Airport (TLV), Israel', status: 'Package accepted and processed at origin facility', completed: true },
     { date: 'July 28', time: '03:45 PM', location: 'Tel Aviv, Israel', status: 'In transit to destination', completed: true },
-    { date: 'July 30', time: '06:30 AM', location: 'Vienna, Austria', status: 'Arrived at destination facility', completed: false },
+    { date: 'July 30', time: '06:30 AM', location: 'Vienna, Austria', status: 'Arrived at destination facility', completed: true },
     { date: 'July 30', time: '09:00 AM', location: 'Vienna, Austria', status: 'Held in customs awaiting clearance', completed: false },
     { date: 'July 30', time: '02:00 PM', location: 'Vienna, Austria', status: 'Out for delivery', completed: false }
   ]
