@@ -91,7 +91,7 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'August 2', time: '09:00 AM', location: 'Tripoli, Libya', status: 'Shipment information received', completed: true },
     { date: 'August 2', time: '02:30 PM', location: 'Tripoli Airport (LB), libya', status: 'Package accepted and processed at origin facility', completed: true },
     { date: 'August 3', time: '07:15 AM', location: 'Tripoli, libya', status: 'In transit to destination', completed: true },
-    { date: 'August 5', time: '08:00 AM', location: 'Moscow, Russia', status: 'Arrived at destination facility', completed: false },
+    { date: 'August 5', time: '08:00 AM', location: 'Moscow, Russia', status: 'Arrived at destination facility', completed: true },
     { date: 'August 5', time: '11:30 AM', location: 'Moscow, Russia', status: 'Held in customs awaiting clearance', completed: false },
     { date: 'August 5', time: '03:00 PM', location: 'Moscow, Russia', status: 'Out for delivery', completed: false }
   ]
