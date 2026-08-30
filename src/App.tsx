@@ -49,6 +49,22 @@ const sampleTrackingData: Record<string, TrackingData> = {
   ]
  },
 
+  'ITR78738307': {
+  trackingNumber: 'ITR78738307',
+  origin: 'Kyiv, Ukraine',
+  destination: 'Dehradun, Uttarakhand, India',
+  estimatedDelivery: 'August 31, 2026',
+  status: 'in transit',
+  events: [
+    { date: 'Aug 29', time: '08:30 AM', location: 'Kyiv, Ukraine', status: 'Shipment information received', completed: true },
+    { date: 'Aug 29', time: '11:15 AM', location: 'Kyiv Boryspil Airport, Ukraine', status: 'Package accepted and processed at origin facility', completed: true },
+    { date: 'Aug 29', time: '03:45 PM', location: 'Kyiv, Ukraine', status: 'In transit to destination', completed: true },
+    { date: 'Aug 31', time: '06:30 AM', location: 'Dehradun, India', status: 'Arrived at destination facility', completed: false },
+    { date: 'Aug 31', time: '09:00 AM', location: 'Dehradun, India', status: 'Held in customs awaiting clearance', completed: false },
+    { date: 'Aug 31', time: '02:00 PM', location: 'Dehradun, India', status: 'Out for delivery', completed: false }
+  ]
+},
+  
   'ITR78738909': {
   trackingNumber: 'ITR78738909',
   origin: 'Tel Aviv, Israel',
