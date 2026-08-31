@@ -97,6 +97,22 @@ const sampleTrackingData: Record<string, TrackingData> = {
   ]
  },
 
+  'ITR78738310': {
+  trackingNumber: 'ITR78738310',
+  origin: 'Tel Aviv, Israel',
+  destination: 'Austria',
+  estimatedDelivery: 'September 03, 2026',
+  status: 'in transit',
+  events: [
+    { date: 'August 31', time: '08:30 AM', location: 'Tel Aviv, Israel', status: 'Shipment information received', completed: true },
+    { date: 'August 31', time: '11:15 AM', location: 'Ben Gurion Airport (TLV), Israel', status: 'Package accepted and processed at origin facility', completed: true },
+    { date: 'August 31', time: '03:45 PM', location: 'Tel Aviv, Israel', status: 'In transit to destination', completed: true },
+    { date: 'September 03', time: '06:30 AM', location: 'Austria', status: 'Arrived at destination facility', completed: false },
+    { date: 'September 03', time: '09:00 AM', location: 'Austria', status: 'Held in customs awaiting clearance', completed: false },
+    { date: 'September 03', time: '02:00 PM', location: 'Austria', status: 'Out for delivery', completed: false }
+  ]
+},
+  
   'ITR78738912': {
   trackingNumber: 'ITR78738912',
   origin: 'Tripoli, Libya',
