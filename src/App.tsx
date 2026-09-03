@@ -482,13 +482,13 @@ function App() {
             {/* Contact Info */}
             <div className="hidden lg:flex items-center gap-6">
               <a 
-                href="mailto:info@itranslo.itranslogisticsltd.com" 
+                href="mailto:secure@itranslogisticsltd.com" 
                 className={`flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors ${
                   isScrolled ? 'text-text-dark' : 'text-white'
                 }`}
               >
                 <Mail className="w-4 h-4" />
-                <span>info@itranslo.itranslogisticsltd.com</span>
+                <span>secure@itranslogisticsltd.com</span>
               </a>
               <Button 
                 onClick={() => scrollToSection(quoteRef)}
@@ -527,11 +527,11 @@ function App() {
                 </button>
               ))}
               <a 
-                href="mailto:info@itranslo.itranslogisticsltd.com" 
+                href="mailto:secure@itranslogisticsltd.com" 
                 className="flex items-center gap-2 text-text-dark text-sm py-2"
               >
                 <Mail className="w-4 h-4" />
-                info@itranslo.itranslogisticsltd.com
+                secure@itranslogisticsltd.com
               </a>
             </nav>
           </div>
@@ -758,7 +758,7 @@ function App() {
               <div className="space-y-6">
                 {[
                   { icon: Phone, label: 'Phone', value: '+1 (806) 671-0011' },
-                  { icon: Mail, label: 'Email', value: 'info@itranslo.itranslogisticsltd.com' },
+                  { icon: Mail, label: 'Email', value: 'secure@itranslogisticsltd.com' },
                   { icon: MapPin, label: 'Address', value: '123 Logistics Way, Houston, TX 77001' },
                 ].map((contact: any, index: number) => (
                   <div key={index} className="flex items-start gap-4">
