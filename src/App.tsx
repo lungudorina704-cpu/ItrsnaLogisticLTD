@@ -80,7 +80,23 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'July 30', time: '02:00 PM', location: 'Vienna, Austria', status: 'Out for delivery', completed: false }
   ]
 },
-    
+
+  'ITR90125280': {
+  trackingNumber: 'ITR90125280',
+  origin: 'United Kingdom',
+  destination: 'Goiânia, Goiás, Brazil',
+  estimatedDelivery: 'August 10, 2026',
+  status: 'in transit',
+  events: [
+    { date: 'August 07', time: '09:00 AM', location: 'United Kingdom', status: 'Shipment information received', completed: true },
+    { date: 'August 07', time: '02:30 PM', location: 'United Kingdom', status: 'Package accepted and processed at origin facility', completed: true },
+    { date: 'August 08', time: '07:45 AM', location: 'United Kingdom', status: 'In transit to destination', completed: false },
+    { date: 'August 10', time: '08:00 AM', location: 'Goiânia, Goiás, Brazil', status: 'Arrived at destination facility', completed: false },
+    { date: 'August 10', time: '11:30 AM', location: 'Goiânia, Goiás, Brazil', status: 'Customs awaiting clearance', completed: false },
+    { date: 'August 10', time: '03:00 PM', location: 'Goiânia, Goiás, Brazil', status: 'Out for delivery', completed: false }
+  ]
+},
+  
   'ITR78738981': {
   trackingNumber: 'ITR78738981',
   origin: 'Halle, Saxony, Germany',
