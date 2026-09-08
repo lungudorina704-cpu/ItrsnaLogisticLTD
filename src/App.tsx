@@ -85,15 +85,15 @@ const sampleTrackingData: Record<string, TrackingData> = {
   trackingNumber: 'ITR90125280',
   origin: 'United Kingdom',
   destination: 'Goiânia, Goiás, Brazil',
-  estimatedDelivery: 'August 10, 2026',
+  estimatedDelivery: 'September 10, 2026',
   status: 'in transit',
   events: [
-    { date: 'August 07', time: '09:00 AM', location: 'United Kingdom', status: 'Shipment information received', completed: true },
-    { date: 'August 07', time: '02:30 PM', location: 'United Kingdom', status: 'Package accepted and processed at origin facility', completed: true },
-    { date: 'August 08', time: '07:45 AM', location: 'United Kingdom', status: 'In transit to destination', completed: false },
-    { date: 'August 10', time: '08:00 AM', location: 'Goiânia, Goiás, Brazil', status: 'Arrived at destination facility', completed: false },
-    { date: 'August 10', time: '11:30 AM', location: 'Goiânia, Goiás, Brazil', status: 'Customs awaiting clearance', completed: false },
-    { date: 'August 10', time: '03:00 PM', location: 'Goiânia, Goiás, Brazil', status: 'Out for delivery', completed: false }
+    { date: 'September 07', time: '09:00 AM', location: 'United Kingdom', status: 'Shipment information received', completed: true },
+    { date: 'September 07', time: '02:30 PM', location: 'United Kingdom', status: 'Package accepted and processed at origin facility', completed: true },
+    { date: 'September 08', time: '07:45 AM', location: 'United Kingdom', status: 'In transit to destination', completed: true },
+    { date: 'September 10', time: '08:00 AM', location: 'Goiânia, Goiás, Brazil', status: 'Arrived at destination facility', completed: false },
+    { date: 'September 10', time: '11:30 AM', location: 'Goiânia, Goiás, Brazil', status: 'Customs awaiting clearance', completed: false },
+    { date: 'September 10', time: '03:00 PM', location: 'Goiânia, Goiás, Brazil', status: 'Out for delivery', completed: false }
   ]
 },
   
