@@ -4,14 +4,23 @@ import {
   Menu, X, Phone, Mail, MapPin, ChevronRight, 
   Plane, Ship, Truck, Warehouse, ArrowRight, 
   CheckCircle, Clock, Package, Search, Globe,
-  Shield, Zap, BarChart3, Users
+  Shield, Zap, BarChart3, Users, ChevronDown, Loader2
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { toast } from 'sonner'
 import './App.css'
- 
+import { useLanguage } from './LanguageContext'
+import { languageOptions, Language } from './translations'
+
+// ─── EMAILJS CONFIG ─────────────────────────────────────
+const EMAILJS_SERVICE_ID = 'service_vm89se5';           // ← already yours
+const QUOTE_TEMPLATE_ID = 'template_5a5aqca';           // ← already yours
+const AUTO_REPLY_TEMPLATE_ID = 'template_XXXXXXXX';     // ← PASTE your new auto-reply template ID here
+const EMAILJS_PUBLIC_KEY = 'xrCyEx9urDpKKAyGw';         // ← already yours
+// ────────────────────────────────────────────────────────
+
 // Tracking data type
  interface TrackingEvent { 
  date: string
@@ -350,25 +359,56 @@ const sampleTrackingData: Record<string, TrackingData> = {
 };
 
 function App() {
+  const { language, setLanguage, t } = useLanguage();
+  const [isSending, setIsSending] = useState(false)
 
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
- 
-    emailjs.sendForm(
-  'service_vm89se5',
-  'template_5a5aqca',
-  e.currentTarget,
-  'xrCyEx9urDpKKAyGw'
-)
-.then(() => {
-  alert('Message sent successfully!');
-})
-.catch((error) => {
-  console.log(error);
-  alert('Failed to send message.');
-});
+
+    // Validation
+    if (!quoteForm.name.trim() || !quoteForm.email.trim() || !quoteForm.message.trim()) {
+      toast.error(t('toast.fillRequired'));
+      return;
+    }
+
+    setIsSending(true);
+
+    // 1. Send quote request to YOU
+    emailjs.send(
+      EMAILJS_SERVICE_ID,
+      QUOTE_TEMPLATE_ID,
+      {
+        user_name: quoteForm.name,
+        user_email: quoteForm.email,
+        user_phone: quoteForm.phone,
+        message: quoteForm.message,
+      },
+      EMAILJS_PUBLIC_KEY
+    )
+    // 2. Send auto-reply to the VISITOR
+    .then(() => emailjs.send(
+      EMAILJS_SERVICE_ID,
+      AUTO_REPLY_TEMPLATE_ID,
+      {
+        to_email: quoteForm.email,
+        to_name: quoteForm.name,
+        message: quoteForm.message,
+      },
+      EMAILJS_PUBLIC_KEY
+    ))
+    .then(() => {
+      toast.success(t('toast.success'));
+      setQuoteForm({ name: '', email: '', phone: '', message: '' });
+    })
+    .catch((error) => {
+      console.log(error);
+      toast.error(t('toast.error'));
+    })
+    .finally(() => setIsSending(false));
   };
+
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [langMenuOpen, setLangMenuOpen] = useState(false)
   const [trackingNumber, setTrackingNumber] = useState('')
   const [trackingData, setTrackingData] = useState<any>(null)
   const [isTrackingDialogOpen, setIsTrackingDialogOpen] = useState(false)
@@ -421,35 +461,44 @@ function App() {
   const services = [
     {
       icon: Plane,
-      title: 'Air Freight',
-      description: 'Time-critical shipments delivered with precision. Our air freight services ensure your goods reach their destination quickly and safely.',
+      title: t('services.air.title'),
+      description: t('services.air.desc'),
       image: '/service-air.jpg'
     },
     {
       icon: Ship,
-      title: 'Ocean Freight',
-      description: 'Cost-effective global shipping solutions. We handle FCL and LCL shipments to and from major ports worldwide.',
+      title: t('services.ocean.title'),
+      description: t('services.ocean.desc'),
       image: '/service-ocean.jpg'
     },
     {
       icon: Truck,
-      title: 'Road Transport',
-      description: 'Seamless inland connectivity with our extensive fleet of trucks and trailers for domestic and cross-border transportation.',
+      title: t('services.road.title'),
+      description: t('services.road.desc'),
       image: '/service-road.jpg'
     },
     {
       icon: Warehouse,
-      title: 'Warehousing',
-      description: 'Secure storage and inventory management solutions with real-time tracking and distribution services.',
+      title: t('services.warehouse.title'),
+      description: t('services.warehouse.desc'),
       image: '/service-warehouse.jpg'
     }
   ]
 
   const stats = [
-    { value: '25+', label: 'Years Experience', icon: Clock },
-    { value: '150+', label: 'Countries Served', icon: Globe },
-    { value: '50K+', label: 'Deliveries Monthly', icon: Package },
-    { value: '99%', label: 'On-Time Delivery', icon: CheckCircle },
+    { value: '25+', label: t('stats.experience'), icon: Clock },
+    { value: '150+', label: t('stats.countries'), icon: Globe },
+    { value: '50K+', label: t('stats.deliveries'), icon: Package },
+    { value: '99%', label: t('stats.ontime'), icon: CheckCircle },
+  ]
+
+  const currentLang = languageOptions.find(l => l.code === language)!
+
+  const navItems = [
+    { label: t('nav.home'), ref: heroRef },
+    { label: t('nav.about'), ref: aboutRef },
+    { label: t('nav.services'), ref: servicesRef },
+    { label: t('nav.quote'), ref: quoteRef },
   ]
 
   return (
@@ -477,12 +526,7 @@ function App() {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-8">
-              {[
-                { label: 'Home', ref: heroRef },
-                { label: 'About', ref: aboutRef },
-                { label: 'Services', ref: servicesRef },
-                { label: 'Quote', ref: quoteRef },
-              ].map((item) => (
+              {navItems.map((item) => (
                 <button
                   key={item.label}
                   onClick={() => scrollToSection(item.ref)}
@@ -495,7 +539,7 @@ function App() {
               ))}
             </nav>
 
-            {/* Contact Info */}
+            {/* Contact Info + Language */}
             <div className="hidden lg:flex items-center gap-6">
               <a 
                 href="mailto:secure@itranslogisticsltd.com" 
@@ -506,11 +550,43 @@ function App() {
                 <Mail className="w-4 h-4" />
                 <span>secure@itranslogisticsltd.com</span>
               </a>
+
+              {/* Language Selector */}
+              <div className="relative">
+                <button
+                  onClick={() => setLangMenuOpen(!langMenuOpen)}
+                  className={`flex items-center gap-1.5 border rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                    isScrolled
+                      ? 'border-gray-200 text-text-dark hover:border-primary'
+                      : 'border-white/30 text-white hover:border-primary'
+                  }`}
+                >
+                  <span>{currentLang.flag}</span>
+                  <span className="uppercase">{language}</span>
+                  <ChevronDown className="w-3.5 h-3.5" />
+                </button>
+                {langMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-44 bg-white border border-gray-100 rounded-xl shadow-xl overflow-hidden z-50">
+                    {languageOptions.map((l) => (
+                      <button
+                        key={l.code}
+                        onClick={() => { setLanguage(l.code as Language); setLangMenuOpen(false); }}
+                        className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm text-left hover:bg-gray-50 transition-colors ${
+                          l.code === language ? 'text-primary font-semibold' : 'text-text-dark'
+                        }`}
+                      >
+                        <span>{l.flag}</span> {l.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               <Button 
                 onClick={() => scrollToSection(quoteRef)}
                 className="bg-primary hover:bg-primary-600 text-white"
               >
-                Get a Quote
+                {t('nav.getQuote')}
               </Button>
             </div>
 
@@ -528,12 +604,7 @@ function App() {
         {isMenuOpen && (
           <div className="lg:hidden bg-white border-t">
             <nav className="flex flex-col p-4 gap-4">
-              {[
-                { label: 'Home', ref: heroRef },
-                { label: 'About', ref: aboutRef },
-                { label: 'Services', ref: servicesRef },
-                { label: 'Quote', ref: quoteRef },
-              ].map((item) => (
+              {navItems.map((item) => (
                 <button
                   key={item.label}
                   onClick={() => scrollToSection(item.ref)}
@@ -549,6 +620,22 @@ function App() {
                 <Mail className="w-4 h-4" />
                 secure@itranslogisticsltd.com
               </a>
+              {/* Mobile language selector */}
+              <div className="flex flex-wrap gap-2 pt-3 border-t border-gray-100">
+                {languageOptions.map((l) => (
+                  <button
+                    key={l.code}
+                    onClick={() => { setLanguage(l.code as Language); setIsMenuOpen(false); }}
+                    className={`text-sm border rounded-lg px-3 py-1.5 transition-colors ${
+                      l.code === language
+                        ? 'border-primary text-primary font-semibold'
+                        : 'border-gray-200 text-text-dark'
+                    }`}
+                  >
+                    {l.flag} {l.label}
+                  </button>
+                ))}
+              </div>
             </nav>
           </div>
         )}
@@ -571,28 +658,28 @@ function App() {
           <div className="max-w-4xl">
             <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-full px-4 py-2 mb-6">
               <Zap className="w-4 h-4 text-primary" />
-              <span className="text-white text-sm font-medium">Global Logistics Solutions</span>
+              <span className="text-white text-sm font-medium">{t('hero.badge')}</span>
             </div>
             
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight mb-6">
-              Logistics & Supply Chain Solutions
+              {t('hero.title')}
             </h1>
             
             <p className="text-white/90 text-lg sm:text-xl max-w-2xl mb-8 font-body">
-              We are the leading logistics provider, ensuring your goods move seamlessly across the globe. From air freight to ocean shipping, we've got you covered.
+              {t('hero.subtitle')}
             </p>
 
             {/* Tracking Input */}
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6 max-w-2xl">
               <label className="text-white text-sm font-medium mb-3 block">
-                Track Your Shipment
+                {t('hero.trackLabel')}
               </label>
               <div className="flex flex-col sm:flex-row gap-3">
                 <div className="flex-1 relative">
                   <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-light" />
                   <Input
                     type="text"
-                    placeholder="Enter tracking number (e.g., ITR123456789)"
+                    placeholder={t('hero.trackPlaceholder')}
                     value={trackingNumber}
                     onChange={(e) => setTrackingNumber(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleTrack()}
@@ -603,12 +690,12 @@ function App() {
                   onClick={handleTrack}
                   className="bg-primary hover:bg-primary-600 text-white px-8 py-6 rounded-xl font-medium"
                 >
-                  Track
+                  {t('hero.trackBtn')}
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </div>
               <p className="text-white/60 text-xs mt-3">
-                Try sample tracking numbers: ITR123456789 or ITR987654321
+                {t('hero.trackHint')}
               </p>
             </div>
 
@@ -644,7 +731,7 @@ function App() {
               {/* Floating Card */}
               <div className="absolute -bottom-6 -right-6 bg-primary text-white p-6 rounded-2xl shadow-xl hidden lg:block">
                 <div className="font-display text-4xl font-bold">25+</div>
-                <div className="text-white/80 text-sm">Years of Excellence</div>
+                <div className="text-white/80 text-sm">{t('about.years')}</div>
               </div>
             </div>
 
@@ -652,28 +739,28 @@ function App() {
             <div>
               <div className="inline-flex items-center gap-2 text-primary font-medium text-sm mb-4">
                 <div className="w-8 h-[2px] bg-primary" />
-                About Us
+                {t('about.subtitle')}
               </div>
               
               <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-black mb-6">
-                Your Trusted Logistics Partner
+                {t('about.title')}
               </h2>
               
               <p className="text-text-dark text-lg leading-relaxed mb-6">
-                With over two decades of experience, iTrans Logistics has revolutionized the way businesses handle their supply chains. We combine cutting-edge technology with robust infrastructure to deliver unparalleled service.
+                {t('about.p1')}
               </p>
               
               <p className="text-text-light leading-relaxed mb-8">
-                Our global network spans 150+ countries, enabling us to provide seamless logistics solutions tailored to your unique needs. From small businesses to enterprise corporations, we handle every shipment with the same level of care and professionalism.
+                {t('about.p2')}
               </p>
 
               {/* Features */}
               <div className="grid sm:grid-cols-2 gap-4 mb-8">
                 {[
-                  { icon: Shield, text: 'Secure Transportation' },
-                  { icon: BarChart3, text: 'Real-time Tracking' },
-                  { icon: Users, text: '24/7 Customer Support' },
-                  { icon: Globe, text: 'Global Coverage' },
+                  { icon: Shield, text: t('about.features.secure') },
+                  { icon: BarChart3, text: t('about.features.tracking') },
+                  { icon: Users, text: t('about.features.support') },
+                  { icon: Globe, text: t('about.features.coverage') },
                 ].map((feature, index) => (
                   <div key={index} className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
@@ -688,7 +775,7 @@ function App() {
                 onClick={() => scrollToSection(quoteRef)}
                 className="bg-black hover:bg-gray-800 text-white px-8"
               >
-                More About Us
+                {t('about.cta')}
                 <ChevronRight className="w-5 h-5 ml-2" />
               </Button>
             </div>
@@ -703,14 +790,14 @@ function App() {
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 text-primary font-medium text-sm mb-4">
               <div className="w-8 h-[2px] bg-primary" />
-              Our Services
+              {t('services.subtitle')}
               <div className="w-8 h-[2px] bg-primary" />
             </div>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-black mb-6">
-              Comprehensive Logistics Solutions
+              {t('services.title')}
             </h2>
             <p className="text-text-light text-lg">
-              We offer a full range of logistics services to meet your transportation and supply chain needs.
+              {t('services.desc')}
             </p>
           </div>
 
@@ -742,7 +829,7 @@ function App() {
                     {service.description}
                   </p>
                   <button className="flex items-center gap-2 text-primary font-medium text-sm group-hover:gap-3 transition-all">
-                    Learn More
+                    {t('services.learnMore')}
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
@@ -760,22 +847,22 @@ function App() {
             <div>
               <div className="inline-flex items-center gap-2 text-primary font-medium text-sm mb-4">
                 <div className="w-8 h-[2px] bg-primary" />
-                Request a Quote
+                {t('quote.subtitle')}
               </div>
               
               <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-black mb-6">
-                Get Your Free Quote Today
+                {t('quote.title')}
               </h2>
               
               <p className="text-text-light text-lg mb-12">
-                Fill out the form and our team will get back to you within 24 hours with a customized quote for your logistics needs.
+                {t('quote.desc')}
               </p>
 
               <div className="space-y-6">
                 {[
-                  { icon: Phone, label: 'Phone', value: '+1 (806) 671-0011' },
-                  { icon: Mail, label: 'Email', value: 'secure@itranslogisticsltd.com' },
-                  { icon: MapPin, label: 'Address', value: '123 Logistics Way, Houston, TX 77001' },
+                  { icon: Phone, label: t('quote.contact.phone'), value: '+1 (806) 671-0011' },
+                  { icon: Mail, label: t('quote.contact.email'), value: 'secure@itranslogisticsltd.com' },
+                  { icon: MapPin, label: t('quote.contact.address'), value: '123 Logistics Way, Houston, TX 77001' },
                 ].map((contact: any, index: number) => (
                   <div key={index} className="flex items-start gap-4">
                     <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -798,11 +885,11 @@ function App() {
               <div className="bg-gray-50 rounded-2xl p-8 lg:p-10">
                 <form onSubmit={sendEmail} className="space-y-6">
                   <div>
-                    <label className="block text-text-dark font-medium mb-2">Full Name *</label>
+                    <label className="block text-text-dark font-medium mb-2">{t('quote.form.name')} *</label>
                     <Input
                       name="user_name"
                       type="text"
-                      placeholder="John Doe"
+                      placeholder={t('quote.form.namePlaceholder')}
                       value={quoteForm.name}
                       onChange={(e) => setQuoteForm({ ...quoteForm, name: e.target.value })}
                       className="w-full"
@@ -811,11 +898,11 @@ function App() {
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-text-dark font-medium mb-2">Email *</label>
+                      <label className="block text-text-dark font-medium mb-2">{t('quote.form.email')} *</label>
                       <Input
                         name="user_email"
                         type="email"
-                        placeholder="john@example.com"
+                        placeholder={t('quote.form.emailPlaceholder')}
                         value={quoteForm.email}
                         onChange={(e) => setQuoteForm({ ...quoteForm, email: e.target.value })}
                         className="w-full"
@@ -823,11 +910,11 @@ function App() {
                     </div>
 
                     <div>
-                      <label className="block text-text-dark font-medium mb-2">Phone</label>
+                      <label className="block text-text-dark font-medium mb-2">{t('quote.form.phone')}</label>
                       <Input
                         name="user_phone"
                         type="tel"
-                        placeholder="+1 (555) 000-0000"
+                        placeholder={t('quote.form.phonePlaceholder')}
                         value={quoteForm.phone}
                         onChange={(e) => setQuoteForm({ ...quoteForm, phone: e.target.value })}
                         className="w-full"
@@ -836,11 +923,11 @@ function App() {
                   </div>
 
                   <div>
-                    <label className="block text-text-dark font-medium mb-2">Message *</label>
+                    <label className="block text-text-dark font-medium mb-2">{t('quote.form.message')} *</label>
                     <textarea
                       name="message"
                       rows={4}
-                      placeholder="Tell us about your logistics needs..."
+                      placeholder={t('quote.form.messagePlaceholder')}
                       value={quoteForm.message}
                       onChange={(e) => setQuoteForm({ ...quoteForm, message: e.target.value })}
                       className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl"
@@ -849,9 +936,11 @@ function App() {
 
                   <Button
                     type="submit"
-                    className="w-full bg-primary hover:bg-primary-600 text-white py-6 rounded-xl font-medium"
+                    disabled={isSending}
+                    className="w-full bg-primary hover:bg-primary-600 text-white py-6 rounded-xl font-medium disabled:opacity-60 flex items-center justify-center gap-2"
                   >
-                    Submit Request
+                    {isSending && <Loader2 className="w-5 h-5 animate-spin" />}
+                    {isSending ? 'Sending...' : t('quote.form.submit')}
                   </Button>
                 </form>
               </div>
@@ -875,7 +964,7 @@ function App() {
                 </span>
               </div>
               <p className="text-white/60 text-sm leading-relaxed mb-6">
-                Your trusted partner for global logistics and supply chain solutions. Delivering excellence since 1999.
+                {t('footer.company')}
               </p>
               <div className="flex gap-4">
                 {['Facebook', 'Twitter', 'LinkedIn', 'Instagram'].map((social) => (
@@ -892,9 +981,9 @@ function App() {
 
             {/* Services */}
             <div>
-              <h4 className="font-display font-bold text-lg mb-6">Services</h4>
+              <h4 className="font-display font-bold text-lg mb-6">{t('footer.servicesTitle')}</h4>
               <ul className="space-y-3">
-                {['Air Freight', 'Ocean Freight', 'Road Transport', 'Warehousing', 'Supply Chain'].map((service) => (
+                {t('footer.services').map((service: string) => (
                   <li key={service}>
                     <a href="#" className="text-white/60 hover:text-primary transition-colors text-sm">
                       {service}
@@ -906,9 +995,9 @@ function App() {
 
             {/* Company */}
             <div>
-              <h4 className="font-display font-bold text-lg mb-6">Company</h4>
+              <h4 className="font-display font-bold text-lg mb-6">{t('footer.companyTitle')}</h4>
               <ul className="space-y-3">
-                {['About Us', 'Careers', 'News', 'Partners', 'Contact'].map((item) => (
+                {t('footer.companyLinks').map((item: string) => (
                   <li key={item}>
                     <a href="#" className="text-white/60 hover:text-primary transition-colors text-sm">
                       {item}
@@ -920,9 +1009,9 @@ function App() {
 
             {/* Support */}
             <div>
-              <h4 className="font-display font-bold text-lg mb-6">Support</h4>
+              <h4 className="font-display font-bold text-lg mb-6">{t('footer.supportTitle')}</h4>
               <ul className="space-y-3">
-                {['Help Center', 'Track Shipment', 'FAQs', 'Terms of Service', 'Privacy Policy'].map((item) => (
+                {t('footer.support').map((item: string) => (
                   <li key={item}>
                     <a href="#" className="text-white/60 hover:text-primary transition-colors text-sm">
                       {item}
@@ -936,12 +1025,12 @@ function App() {
           {/* Bottom */}
           <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-white/40 text-sm">
-              © 2024 iTrans Logistics Ltd. All rights reserved.
+              {t('footer.copyright')}
             </p>
             <div className="flex gap-6">
-              <a href="#" className="text-white/40 hover:text-white text-sm transition-colors">Terms</a>
-              <a href="#" className="text-white/40 hover:text-white text-sm transition-colors">Privacy</a>
-              <a href="#" className="text-white/40 hover:text-white text-sm transition-colors">Cookies</a>
+              <a href="#" className="text-white/40 hover:text-white text-sm transition-colors">{t('footer.terms')}</a>
+              <a href="#" className="text-white/40 hover:text-white text-sm transition-colors">{t('footer.privacy')}</a>
+              <a href="#" className="text-white/40 hover:text-white text-sm transition-colors">{t('footer.cookies')}</a>
             </div>
           </div>
         </div>
@@ -951,7 +1040,7 @@ function App() {
       <Dialog open={isTrackingDialogOpen} onOpenChange={setIsTrackingDialogOpen}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="font-display text-2xl">Shipment Tracking</DialogTitle>
+            <DialogTitle className="font-display text-2xl">{t('tracking.title')}</DialogTitle>
           </DialogHeader>
           
           {trackingData && (
@@ -960,26 +1049,26 @@ function App() {
               <div className="bg-primary/5 rounded-xl p-4 mb-6">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <div className="text-text-light text-sm mb-1">Tracking Number</div>
+                    <div className="text-text-light text-sm mb-1">{t('tracking.number')}</div>
                     <div className="font-display text-lg font-bold text-black">{trackingData.trackingNumber}</div>
                   </div>
                   <div>
-                    <div className="text-text-light text-sm mb-1">Status</div>
+                    <div className="text-text-light text-sm mb-1">{t('tracking.status')}</div>
                     <div className="inline-flex items-center gap-2">
                       <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
                       <span className="font-medium text-primary">{trackingData.status}</span>
                     </div>
                   </div>
                   <div>
-                    <div className="text-text-light text-sm mb-1">From</div>
+                    <div className="text-text-light text-sm mb-1">{t('tracking.from')}</div>
                     <div className="font-medium text-text-dark">{trackingData.origin}</div>
                   </div>
                   <div>
-                    <div className="text-text-light text-sm mb-1">To</div>
+                    <div className="text-text-light text-sm mb-1">{t('tracking.to')}</div>
                     <div className="font-medium text-text-dark">{trackingData.destination}</div>
                   </div>
                   <div className="sm:col-span-2">
-                    <div className="text-text-light text-sm mb-1">Estimated Delivery</div>
+                    <div className="text-text-light text-sm mb-1">{t('tracking.estimated')}</div>
                     <div className="font-display text-lg font-bold text-primary">{trackingData.estimatedDelivery}</div>
                   </div>
                 </div>
