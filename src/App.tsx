@@ -14,14 +14,11 @@ import './App.css'
 import { useLanguage } from './LanguageContext'
 import { languageOptions, Language } from './translations'
 
-// ─── EMAILJS CONFIG ─────────────────────────────────────
-const EMAILJS_SERVICE_ID = 'service_vm89se5';           // ← already yours
-const QUOTE_TEMPLATE_ID = 'template_5a5aqca';           // ← already yours
-const AUTO_REPLY_TEMPLATE_ID = 'template_XXXXXXXX';     // ← PASTE your new auto-reply template ID here
-const EMAILJS_PUBLIC_KEY = 'xrCyEx9urDpKKAyGw';         // ← already yours
-// ────────────────────────────────────────────────────────
+const EMAILJS_SERVICE_ID = 'service_vm89se5';
+const QUOTE_TEMPLATE_ID = 'template_5a5aqca';
+const AUTO_REPLY_TEMPLATE_ID = 'template_XXXXXXXX';
+const EMAILJS_PUBLIC_KEY = 'xrCyEx9urDpKKAyGw';         
 
-// Tracking data type
  interface TrackingEvent { 
  date: string
  time: string
@@ -365,7 +362,6 @@ function App() {
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Validation
     if (!quoteForm.name.trim() || !quoteForm.email.trim() || !quoteForm.message.trim()) {
       toast.error(t('toast.fillRequired'));
       return;
@@ -373,7 +369,6 @@ function App() {
 
     setIsSending(true);
 
-    // 1. Send quote request to YOU
     emailjs.send(
       EMAILJS_SERVICE_ID,
       QUOTE_TEMPLATE_ID,
@@ -385,7 +380,6 @@ function App() {
       },
       EMAILJS_PUBLIC_KEY
     )
-    // 2. Send auto-reply to the VISITOR
     .then(() => emailjs.send(
       EMAILJS_SERVICE_ID,
       AUTO_REPLY_TEMPLATE_ID,
@@ -429,16 +423,13 @@ function App() {
   }, [])
 
   const handleTrack = () => {
-  // Check empty input
   if (!trackingNumber.trim()) {
     toast.error('Please enter a tracking number')
     return
   }
 
-  // Convert to uppercase
   const upperTracking = trackingNumber.toUpperCase()
 
-  // Check if tracking exists
   const data = (sampleTrackingData as any)[upperTracking]
 
   if (data) {
@@ -447,7 +438,6 @@ function App() {
     return
   }
 
-  // Not found
   toast.error('Tracking code not found')
 }
 
