@@ -96,6 +96,22 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'September 10', time: '03:00 PM', location: 'Goiânia, Goiás, Brazil', status: 'Out for delivery', completed: false }
   ]
 },
+
+  'ITR90425297': {
+  trackingNumber: 'ITR90425297',
+  origin: 'Doral, Florida, USA',
+  destination: 'Salt Lake City, Utah, USA',
+  estimatedDelivery: 'September 11, 2026',
+  status: 'in transit',
+  events: [
+    { date: 'September 09', time: '06:21 PM', location: 'Doral, Florida, USA', status: 'Shipment information received & order processed', completed: true },
+    { date: 'September 09', time: '08:30 PM', location: 'Miami, Florida, USA', status: 'Package accepted and processed at origin facility', completed: true },
+    { date: 'September 10', time: '07:45 AM', location: 'Miami, Florida, USA', status: 'In transit to destination', completed: false },
+    { date: 'September 11', time: '08:00 AM', location: 'Salt Lake City, Utah, USA', status: 'Arrived at destination facility', completed: false },
+    { date: 'September 11', time: '11:30 AM', location: 'Salt Lake City, Utah, USA', status: 'Customs awaiting clearance', completed: false },
+    { date: 'September 11', time: '03:00 PM', location: 'Salt Lake City, Utah, USA', status: 'Out for delivery', completed: false }
+  ]
+},
   
   'ITR78738981': {
   trackingNumber: 'ITR78738981',
