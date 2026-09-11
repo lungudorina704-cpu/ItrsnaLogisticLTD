@@ -123,8 +123,8 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'September 09', time: '09:00 AM', location: 'Afghanistan', status: 'Shipment information received', completed: true },
     { date: 'September 09', time: '02:30 PM', location: 'Afghanistan', status: 'Package accepted and processed at origin facility', completed: true },
     { date: 'September 10', time: '07:45 AM', location: 'Afghanistan', status: 'In transit to destination', completed: true },
-    { date: 'September 11', time: '08:00 AM', location: 'Aguaí, São Paulo (SP), Brazil', status: 'Arrived at destination facility', completed: false },
-    { date: 'September 11', time: '11:30 AM', location: 'Aguaí, São Paulo (SP), Brazil', status: 'Customs awaiting clearance', completed: false },
+    { date: 'September 11', time: '08:00 AM', location: 'Aguaí, São Paulo (SP), Brazil', status: 'Arrived at destination facility', completed: true },
+    { date: 'September 11', time: '11:30 AM', location: 'Aguaí, São Paulo (SP), Brazil', status: 'Customs awaiting clearance pending', completed: false },
     { date: 'September 11', time: '03:00 PM', location: 'Aguaí, São Paulo (SP), Brazil', status: 'Out for delivery', completed: false }
   ]
 },
