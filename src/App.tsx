@@ -64,6 +64,22 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'Aug 31', time: '02:00 PM', location: 'Dehradun, India', status: 'Out for delivery', completed: false }
   ]
 },
+
+  'ITR79845990': {
+  trackingNumber: '79845990',
+  origin: 'Tel Aviv, Israel',
+  destination: 'Odense, Denmark',
+  estimatedDelivery: 'November 9, 2026',
+  status: 'in transit',
+  events: [
+    { date: 'November 6', time: '08:30 AM', location: 'Tel Aviv, Israel', status: 'Shipment information received', completed: true },
+    { date: 'November 6', time: '11:15 AM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Airway bill issued and shipment processed at origin facility', completed: true },
+    { date: 'November 6', time: '03:45 PM', location: 'Tel Aviv, Israel', status: 'Shipment prepared for international air freight', completed: false },
+    { date: 'November 9', time: '09:00 AM', location: 'Odense, Denmark', status: 'Estimated arrival at destination', completed: false },
+    { date: 'November 9', time: '11:00 AM', location: 'Odense, Denmark', status: 'Awaiting destination processing', completed: false },
+    { date: 'November 9', time: '02:00 PM', location: 'Odense, Denmark', status: 'Out for delivery', completed: false }
+  ]
+},
   
   'ITR78738909': {
   trackingNumber: 'ITR78738909',
