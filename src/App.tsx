@@ -58,7 +58,7 @@ const sampleTrackingData: Record<string, TrackingData> = {
   events: [
     { date: 'November 6', time: '05:30 PM', location: 'Tel Aviv, Israel', status: 'Shipment information received', completed: true },
     { date: 'November 6', time: '05:45 PM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Airway bill issued and shipment processed at origin facility', completed: true },
-    { date: 'November 7', time: '06:45 AM', location: 'Tel Aviv, Israel', status: 'Shipment prepared for international air freight', completed: false },
+    { date: 'November 7', time: '09:45 AM', location: 'Tel Aviv, Israel', status: 'Shipment prepared for international air freight', completed: true },
     { date: 'November 9', time: '09:00 AM', location: 'Brazil', status: 'Estimated arrival at destination country', completed: false },
     { date: 'November 9', time: '11:00 AM', location: 'Barra de São Francisco, Espírito Santo, Brazil', status: 'Awaiting destination processing', completed: false },
     { date: 'November 9', time: '02:00 PM', location: 'Barra de São Francisco, Espírito Santo, Brazil', status: 'Out for delivery', completed: false }
@@ -90,7 +90,7 @@ const sampleTrackingData: Record<string, TrackingData> = {
   events: [
     { date: 'November 6', time: '03:30 PM', location: 'Tel Aviv, Israel', status: 'Shipment information received', completed: true },
     { date: 'November 6', time: '03:45 PM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Airway bill issued and shipment processed at origin facility', completed: true },
-    { date: 'November 7', time: '07:45 AM', location: 'Tel Aviv, Israel', status: 'Shipment prepared for international air freight', completed: false },
+    { date: 'November 7', time: '09:45 AM', location: 'Tel Aviv, Israel', status: 'Shipment prepared for international air freight', completed: true },
     { date: 'November 9', time: '09:00 AM', location: 'Odense, Denmark', status: 'Estimated arrival at destination', completed: false },
     { date: 'November 9', time: '11:00 AM', location: 'Odense, Denmark', status: 'Awaiting destination processing', completed: false },
     { date: 'November 9', time: '02:00 PM', location: 'Odense, Denmark', status: 'Out for delivery', completed: false }
