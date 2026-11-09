@@ -129,19 +129,19 @@ const sampleTrackingData: Record<string, TrackingData> = {
   ]
 },
 
-  'ITR90425297': {
-  trackingNumber: 'ITR90425297',
-  origin: 'California International Airport, USA',
-  destination: 'Salt Lake City, Utah, USA',
-  estimatedDelivery: 'September 11, 2026',
+  'ITR79845900': {
+  trackingNumber: '798459900',
+  origin: 'Tel Aviv (TLV), Israel',
+  destination: 'Bad Berleburg, Germany',
+  estimatedDelivery: 'November 11, 2026',
   status: 'in transit',
   events: [
-    { date: 'September 09', time: '05:30 PM', location: 'California International Airport, USA', status: 'Shipment information received & order processed', completed: true },
-    { date: 'September 09', time: '06:30 PM', location: 'California International Airport, USA', status: 'Package accepted and processed at origin facility', completed: true },
-    { date: 'September 10', time: '07:45 AM', location: 'California International Airport, USA', status: 'In transit to destination', completed: true },
-    { date: 'September 11', time: '08:00 AM', location: 'Salt Lake City, Utah, USA', status: 'Arrived at destination facility', completed: false },
-    { date: 'September 11', time: '11:30 AM', location: 'Salt Lake City, Utah, USA', status: 'Customs awaiting clearance', completed: false },
-    { date: 'September 11', time: '03:00 PM', location: 'Salt Lake City, Utah, USA', status: 'Out for delivery', completed: false }
+    { date: 'November 09', time: '07:00 AM', location: 'Tel Aviv, Israel', status: 'Shipment information received', completed: true },
+    { date: 'November 09', time: '08:15 AM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Airway bill issued and shipment processed at origin facility', completed: true },
+    { date: 'November 09', time: '03:45 PM', location: 'Tel Aviv, Israel', status: 'Shipment prepared for international air freight', completed: false },
+    { date: 'November 10', time: '07:30 AM', location: 'International transit facility', status: 'Shipment in transit to Germany', completed: false },
+    { date: 'November 11', time: '09:00 AM', location: 'Germany', status: 'Estimated arrival at destination facility', completed: false },
+    { date: 'November 11', time: '11:30 AM', location: 'Bad Berleburg, Germany', status: 'Awaiting destination processing and customs clearance', completed: false }
   ]
 },
 
