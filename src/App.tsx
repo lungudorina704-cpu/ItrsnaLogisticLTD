@@ -140,7 +140,7 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'November 09', time: '08:15 AM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Airway bill issued and shipment processed at origin facility', completed: true },
     { date: 'November 09', time: '03:45 PM', location: 'Tel Aviv, Israel', status: 'Shipment prepared for international air freight', completed: true },
     { date: 'November 10', time: '07:30 AM', location: 'International transit facility', status: 'Shipment in transit to Germany', completed: true },
-    { date: 'November 11', time: '09:00 AM', location: 'Germany', status: 'Estimated arrival at destination facility', completed: false },
+    { date: 'November 11', time: '09:00 AM', location: 'Germany', status: 'Estimated arrival at destination facility', completed: true },
     { date: 'November 11', time: '11:30 AM', location: 'Bad Berleburg, Germany', status: 'Awaiting destination processing and customs clearance', completed: false },
     { date: 'November 11', time: '00:00 AM', location: 'Bad Berleburg, Germany', status: 'Out for delivery', completed: false }
   ]
