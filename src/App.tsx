@@ -49,35 +49,35 @@ const sampleTrackingData: Record<string, TrackingData> = {
   ]
  },
 
-  'ITR79845902': {
-  trackingNumber: 'ITR79845902',
-  origin: 'Tel Aviv, Israel',
-  destination: 'Barra de São Francisco, Espírito Santo, Brazil',
-  estimatedDelivery: 'November 9, 2026',
+  'ITR5624097': {
+  trackingNumber: 'ITR5624097',
+  origin: 'Tel Aviv (TLV), Israel',
+  destination: 'Leipzig, Germany',
+  estimatedDelivery: 'November 27, 2026',
   status: 'in transit',
   events: [
-    { date: 'November 6', time: '05:30 PM', location: 'Tel Aviv, Israel', status: 'Shipment information received', completed: true },
-    { date: 'November 6', time: '05:45 PM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Airway bill issued and shipment processed at origin facility', completed: true },
-    { date: 'November 7', time: '09:45 AM', location: 'Tel Aviv, Israel', status: 'Shipment prepared for international air freight', completed: true },
-    { date: 'November 9', time: '09:00 AM', location: 'Brazil', status: 'Arrived at destination facility', completed: true },
-    { date: 'November 9', time: '11:00 AM', location: 'Barra de São Francisco, Espírito Santo, Brazil', status: 'Held in customs awaiting clearance', completed: false },
-    { date: 'November 9', time: '02:00 PM', location: 'Barra de São Francisco, Espírito Santo, Brazil', status: 'Out for delivery', completed: false }
+    { date: 'November 24', time: '12:50 PM', location: 'Tel Aviv, Israel', status: 'Shipment information received', completed: true },
+    { date: 'November 24', time: '01:30 PM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Airway bill issued and shipment processed at origin facility', completed: true },
+    { date: 'November 25', time: 'Time not specified', location: 'Tel Aviv, Israel', status: 'Shipment scheduled for international air freight', completed: false },
+    { date: 'November 26', time: 'Time not specified', location: 'International transit facility', status: 'Estimated transit to Germany', completed: false },
+    { date: 'November 27', time: 'Time not specified', location: 'Leipzig, Germany', status: 'Estimated arrival at destination facility', completed: false },
+    { date: 'November 27', time: 'Time not specified', location: 'Leipzig, Germany', status: 'Awaiting destination processing and customs clearance', completed: false }
   ]
 },
-  
-  'ITR78738307': {
-  trackingNumber: 'ITR78738307',
-  origin: 'Kyiv, Ukraine',
-  destination: 'Dehradun, Uttarakhand, India',
-  estimatedDelivery: 'August 31, 2026',
+
+  'ITR99552990': {
+  trackingNumber: 'ITR99552990',
+  origin: 'Tel Aviv (TLV), Israel',
+  destination: 'Dautphetal, Germany',
+  estimatedDelivery: 'November 27, 2026',
   status: 'in transit',
   events: [
-    { date: 'Aug 29', time: '08:30 AM', location: 'Kyiv, Ukraine', status: 'Shipment information received', completed: true },
-    { date: 'Aug 29', time: '11:15 AM', location: 'Kyiv Boryspil Airport, Ukraine', status: 'Package accepted and processed at origin facility', completed: true },
-    { date: 'Aug 29', time: '03:45 PM', location: 'Kyiv, Ukraine', status: 'In transit to destination', completed: true },
-    { date: 'Aug 31', time: '06:30 AM', location: 'Dehradun, India', status: 'Arrived at destination facility', completed: true },
-    { date: 'Aug 31', time: '09:00 AM', location: 'Dehradun, India', status: 'Held in customs awaiting clearance', completed: false },
-    { date: 'Aug 31', time: '02:00 PM', location: 'Dehradun, India', status: 'Out for delivery', completed: false }
+    { date: 'November 24', time: '12:50 PM', location: 'Tel Aviv, Israel', status: 'Shipment information received', completed: true },
+    { date: 'November 24', time: '01:00 PM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Airway bill issued and shipment processed at origin facility', completed: true },
+    { date: 'November 25', time: 'Time not specified', location: 'Tel Aviv, Israel', status: 'Shipment prepared for international air freight', completed: false },
+    { date: 'November 26', time: 'Time not specified', location: 'International transit facility', status: 'Shipment in transit to Germany', completed: false },
+    { date: 'November 27', time: 'Time not specified', location: 'Germany', status: 'Estimated arrival at destination facility', completed: false },
+    { date: 'November 27', time: 'Time not specified', location: 'Dautphetal, Germany', status: 'Awaiting destination processing and customs clearance', completed: false }
   ]
 },
 
