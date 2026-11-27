@@ -60,8 +60,8 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'November 24', time: '01:30 PM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Airway bill issued and shipment processed at origin facility', completed: true },
     { date: 'November 25', time: '08:30 AM', location: 'Tel Aviv, Israel', status: 'Shipment scheduled for international air freight', completed: true },
     { date: 'November 26', time: '10:30 AM', location: 'International transit facility', status: 'Estimated transit to Germany', completed: true },
-    { date: 'November 27', time: '09:30 AM', location: 'Leipzig, Germany', status: 'Estimated arrival at destination facility', completed: true },
-    { date: 'November 27', time: 'Time not specified', location: 'Leipzig, Germany', status: 'Awaiting destination processing and customs clearance', completed: false },
+    { date: 'November 27', time: '09:30 AM', location: 'Leipzig, Germany', status: 'Luggage arrived at destination facility', completed: true },
+    { date: 'November 27', time: 'Time not specified', location: 'Leipzig, Germany', status: 'Awaiting destination processing and customs clearance fee', completed: false },
     { date: 'November 27', time: 'Time not specified', location: 'Leipzig, Germany', status: 'Out for delivery', completed: false }
   ]
 },
@@ -77,8 +77,8 @@ const sampleTrackingData: Record<string, TrackingData> = {
     { date: 'November 24', time: '01:00 PM', location: 'Ben Gurion International Airport (TLV), Israel', status: 'Airway bill issued and shipment processed at origin facility', completed: true },
     { date: 'November 25', time: '08:30 AM', location: 'Tel Aviv, Israel', status: 'Shipment prepared for international air freight', completed: true },
     { date: 'November 26', time: '10:30 AM', location: 'International transit facility', status: 'Shipment in transit to Germany', completed: true },
-    { date: 'November 27', time: '09:30 AM', location: 'Germany', status: 'Estimated arrival at destination facility', completed: true },
-    { date: 'November 27', time: 'Time not specified', location: 'Dautphetal, Germany', status: 'Awaiting processing and customs clearance', completed: false },
+    { date: 'November 27', time: '09:30 AM', location: 'Germany', status: 'Luggage arrived at destination facility', completed: true },
+    { date: 'November 27', time: 'Time not specified', location: 'Dautphetal, Germany', status: 'Awaiting processing and customs clearance fee', completed: false },
     { date: 'November 27', time: 'Time not specified', location: 'Dautphetal, Germany', status: 'Out for delivery', completed: false }
   ]
 },
